@@ -4,39 +4,47 @@
   background-color: rgb(247, 251, 255);
 }
 
-.auth-section .page {
+.auth-section .signup-page {
   padding-top: 65px;
 }
 
-.auth-section img {
-  width: 10%;
+.column-container {
+  min-height: 100vh;
+}
+
+
+
+/* Signup styles */
+
+.signup-image img {
+  width: 9%;
 }
 
 .form-container {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 20px 10px rgba(190, 198, 248, 0.25);
-  padding: 52px 20px 5px 20px;
+  padding: 52px 22px 5px 22px;
   margin-top: 33px;
 }
 
-.form-container h2 {
+.form-container h2.signup-title {
   color: rgb(38, 38, 113);
   font-family: "Poppins", sans-serif;
   font-size: 32.5px;
 }
 
-.form-container label {
-  font-size: 23px;
+.form-container label.signup-label {
   color: rgba(0, 0, 0, .75);
+  font-size: 21px;
 }
 
 .form-container form {
   margin-top: 35px;
 }
 
-.form-container input {
-  font-size: 24px;
+.form-container input.signup-input {
+  font-size: 21px;
   color: rgba(0, 0, 0, .75);
   transition: .2s ease;
 }
@@ -51,7 +59,8 @@
 }
 
 .form-container .ques {
-  font-size: 21px;
+  font-size: 19px;
+  ;
 }
 
 .form-container .ques button {
@@ -85,20 +94,53 @@ button.scrollTopBtn {
 }
 
 
+/* Login styles */
+
+.auth-section img.login-image {
+  margin-top: 5px;
+  width: 26%;
+}
+
+.custom-form-container {
+  margin-top: 30px;
+}
+
+.form-container h2.login-title {
+  font-size: 29.5px;
+  color: rgb(40, 40, 109);
+}
+
+.form-container p.login-subtitle {
+  font-size: 18.5px;
+}
+
+.form-container .custom-form {
+  margin-top: 26px;
+}
+
+.custom-labels label,
+label.labelEL {
+  font-size: 21px;
+}
+
+
 @media (max-width: 726px) {
-  .form-container p {
+
+  .form-container p,
+  .form-container p.login-subtitle {
     font-size: 18px;
   }
 
-  .form-container input,
-  .form-container label,
+  .form-container input.signup-input,
+  .form-container label.signup-label,
   .form-container button.btn,
-  p.copyright {
+  .auth-section p.copyright {
     font-size: 20px;
   }
 
-  .form-container h2 {
-    font-size: 26px;
+  .form-container h2.signup-title,
+  .form-container h2.login-title {
+    font-size: 27px;
   }
 
   .form-container .ques {
@@ -107,22 +149,28 @@ button.scrollTopBtn {
 }
 
 @media (max-height: 800px) {
-  .form-container p {
+
+  .form-container p,
+  .form-container p.login-subtitle {
     font-size: 18px;
   }
 
-  .form-container input,
-  .form-container label,
+  .form-container input.signup-input,
+  .form-container label.signup-label,
   .form-container button.btn,
-  p.copyright {
+  .auth-section p.copyright {
     font-size: 20px;
   }
 
-  .form-container h2 {
+  .form-container h2.signup-title {
     font-size: 26px;
   }
 
   .form-container .ques {
-    font-size: 19px;
+    font-size: 18px;
+  }
+
+  .column-container {
+    padding: 55px 0;
   }
 }
