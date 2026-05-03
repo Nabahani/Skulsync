@@ -2,13 +2,14 @@ import { useState } from "react";
 import ScrollTop from "../components/ScrollTop";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Auth() {
 
     const { signup, login } = useAuth();
+    const { userMode } = useParams();
 
-    const [mode, setMode] = useState("signup");
+    const [mode, setMode] = useState((userMode === "signin" ? "signin" : "signup") || dynamicMode);
     const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
     const [resultErrors, setResultErrors] = useState({});
@@ -79,11 +80,11 @@ function Auth() {
 
                         <div className="row justify-content-center">
                             <div className="col-12 col-lg-10">
-                                <div className={`form-container ${mode === "login" ? "custom-form-container" : ""}`}>
+                                <div className={`form-container ${mode === "signin" ? "custom-form-container" : ""}`}>
                                     {mode === "signup" ? <h2 className="text-center signup-title">Create an Account</h2> : <h2 className="text-center login-title">Login to Your Account</h2>}
                                     {mode === "signup" ? <p className="text-center">Enter your personal details to create account</p> : <p className="text-center login-subtitle">Enter your username & password to login</p>}
 
-                                    <form className={`form ${mode === "login" ? "custom-form" : ""}`} onSubmit={handleSubmit(onSubmit)}>
+                                    <form className={`form ${mode === "signin" ? "custom-form" : ""}`} onSubmit={handleSubmit(onSubmit)}>
                                         {
                                             mode === "signup" ?
                                                 <>
@@ -168,9 +169,9 @@ function Auth() {
                                             }
                                         </div>
 
-                                        <button type="submit" className={`btn btn-primary mt-3 ${mode === "login" ? "mb-4" : ""}`}>{mode === "signup" ? "Create Account" : "Sign In"}</button>
+                                        <button type="submit" className={`btn btn-primary mt-3 ${mode === "signin" ? "mb-4" : ""}`}>{mode === "signup" ? "Create Account" : "Sign In"}</button>
 
-                                        {mode === "signup" ? <p className="ques mt-3">Already have an account? <button onClick={() => setMode("login")} className="text-primary ps-0">Sign In</button></p> : ""}
+                                        {mode === "signup" ? <p className="ques mt-3">Already have an account? <button onClick={() => setMode("signin")} className="text-primary ps-0">Sign In</button></p> : ""}
                                     </form>
                                 </div>
 

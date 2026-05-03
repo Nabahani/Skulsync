@@ -1,8 +1,9 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
+    const [userDetails, setUserDetails] = useState(JSON.parse(localStorage.getItem("user-details") || null));
 
     function signup(data) {
         const systemUsers = JSON.parse(localStorage.getItem("systemUsers") || "[]");
@@ -27,6 +28,8 @@ export function AuthProvider({ children }) {
 
         systemUsers.push(data);
         localStorage.setItem("systemUsers", JSON.stringify(systemUsers));
+        setUserDetails(data);
+        localStorage.setItem("user-details", JSON.stringify(data));
 
         return { success: true };
     }
@@ -44,11 +47,13 @@ export function AuthProvider({ children }) {
             return { success: false, errors: { error: "Invalid credentials" } };
         }
 
+        setUserDetails(user);
+        localStorage.setItem("user-details", JSON.stringify(user));
         return { success: true };
     }
 
     return (
-        <AuthContext.Provider value={{ signup, login }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ signup, login, userDetails }}>{children}</AuthContext.Provider>
     )
 }
 
