@@ -294,6 +294,7 @@ label.labelEL {
 .sidebar-parent {
   display: flex;
   align-items: flex-start;
+  width: 100%;
 }
 
 .sidebar {
@@ -499,6 +500,7 @@ label.labelEL {
 
 
 
+
 /* Pages stylings */
 
 .page {
@@ -596,7 +598,7 @@ label.labelEL {
   padding: 10px 7px;
 }
 
-.small-container .title-text {
+.title-text {
   font-size: 18px;
   color: var(--main-color);
   font-family: "Poppins", sans-serif;
@@ -646,6 +648,87 @@ label.labelEL {
   color: rgb(23, 54, 105);
   font-family: sans-serif;
 }
+
+.footer p strong {
+  color: rgb(16, 44, 90);
+}
+
+
+
+
+
+/* Sessions stylings */
+
+.sessions-container {
+  background-color: white;
+  padding: 20px 15px;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+}
+
+button.add-button {
+  position: relative;
+  width: 38px;
+  height: 40px;
+}
+
+button.add-button .plus-icon {
+  position: absolute;
+  font-size: 28px;
+  font-weight: 600;
+  bottom: 1%;
+  left: 25%;
+}
+
+.sessions-container input,
+.sessions-container select {
+  font-size: 19px;
+  color: rgb(62, 62, 62);
+}
+
+.sessions-container .entries-text {
+  font-size: 20.5px;
+  font-weight: 400;
+  color: rgb(52, 52, 52);
+}
+
+.sessions-container table th {
+  font-size: 14px;
+  color: rgb(27, 27, 27);
+}
+
+.sessions-container table td,
+.sessions-container table td button {
+  font-size: 14px;
+}
+
+.sessions-container table td {
+  color: rgb(12, 12, 12);
+}
+
+.sessions-container .entries-amount {
+  font-size: 20.5px;
+}
+
+.add-for-container {
+  position: fixed;
+  top: 60px;
+}
+
+.modal-dialog h5.modal-title {
+  font-weight: 400;
+  color: rgb(77, 77, 77);
+}
+
+.modal-dialog .btn-close {
+  font-size: 11px;
+}
+
+.modal-dialog label {
+  color: rgb(52, 52, 52);
+}
+
+
 
 
 
@@ -740,11 +823,36 @@ label.labelEL {
   }
 
   .page-title {
-    font-size: 23.5px;
+    font-size: 23.4px;
   }
 
   .page-navigations {
     font-size: 13.5px;
+  }
+
+  button.add-button {
+    position: relative;
+    width: 36px;
+    height: 38px;
+  }
+
+  button.add-button .plus-icon {
+    position: absolute;
+    font-size: 26px;
+    font-weight: 600;
+    bottom: 1%;
+    left: 24%;
+  }
+
+  .sessions-container input,
+  .sessions-container select {
+    font-size: 18px;
+  }
+
+  .sessions-container table th,
+  .sessions-container table td,
+  .sessions-container table td button {
+    font-size: 13px;
   }
 }
 

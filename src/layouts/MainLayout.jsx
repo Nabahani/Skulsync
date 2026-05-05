@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Topbar from '../components/Topbar';
 import Sidebar from '../components/Sidebar';
+import Footer from '../components/Footer';
 
 function MainLayout() {
 
@@ -32,8 +33,12 @@ function MainLayout() {
             <div className="sidebar-parent">
                 <Sidebar collapsed={collapsed} />
 
-                <div className="pt-5 w-100 flex-grow-1">
-                    <Outlet />
+                <div className='w-100'>
+                    <div className="pt-5 w-100 flex-grow-1">
+                        <Outlet />
+                    </div>
+
+                    <Footer />
                 </div>
             </div>
         </div>

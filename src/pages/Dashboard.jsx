@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import ScrollTop from '../components/ScrollTop';
-import Footer from '../components/Footer';
 
 function Dashboard() {
 
     return (
-        <div id="dashboad">
+        <>
             <div className="page">
                 <h4 className="page-title">Dashboard</h4>
                 <p className="page-navigations">
@@ -146,8 +145,7 @@ function Dashboard() {
             </div>
 
             <ScrollTop />
-            <Footer />
-        </div>
+        </>
     )
 }
 

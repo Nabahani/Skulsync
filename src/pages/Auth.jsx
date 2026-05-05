@@ -63,7 +63,7 @@ function Auth() {
         <div className="auth-section min-vh-100">
             <div className="container">
                 <div className="row justify-content-center align-items-center column-container signup-page">
-                    <div className="col-11 col-lg-6">
+                    <div className="col-11 col-md-9 col-lg-6">
                         <div className="text-center">
                             {
                                 mode === "signup" ?

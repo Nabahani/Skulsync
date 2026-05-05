@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import EmailVerification from './pages/EmailVerification';
 import Dashboard from './pages/Dashboard';
 import MainLayout from './layouts/MainLayout';
+import Sessions from './pages/Sessions';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route element={<MainLayout />}>
             <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/sessions' element={<Sessions />} />
           </Route>
 
 
