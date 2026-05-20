@@ -4,6 +4,7 @@
 :root {
   --shadow: 0 2px 20px rgba(100, 100, 100, .15);
   --main-color: rgb(21, 28, 114);
+  --public-font: "Poppins", sans-serif;
 }
 
 .auth-section {
@@ -598,12 +599,6 @@ label.labelEL {
   padding: 10px 7px;
 }
 
-.title-text {
-  font-size: 18px;
-  color: var(--main-color);
-  font-family: "Poppins", sans-serif;
-}
-
 .small-container i {
   font-size: 25px;
   background-color: rgb(248, 248, 250);
@@ -626,7 +621,7 @@ label.labelEL {
   margin: 0;
   margin-bottom: 8px;
   font-size: 19px;
-  color: rgb(74, 74, 74);
+  color: rgb(57, 57, 57);
 }
 
 .small-container .green-text {
@@ -657,13 +652,19 @@ label.labelEL {
 
 
 
-/* Sessions stylings */
+/* public stylings */
 
-.sessions-container {
+.public-container {
   background-color: white;
   padding: 20px 15px;
   border-radius: 5px;
   box-shadow: var(--shadow);
+}
+
+.title-text {
+  font-size: 18px;
+  color: var(--main-color);
+  font-family: "Poppins", sans-serif;
 }
 
 button.add-button {
@@ -680,33 +681,53 @@ button.add-button .plus-icon {
   left: 25%;
 }
 
-.sessions-container input,
-.sessions-container select {
+button.actions,
+.public-container table td button.actions {
+  border: none;
+  font-size: 22px;
+  border-radius: 5px;
+  padding: 0;
+  color: black;
+  transition: .3s ease;
+}
+
+button.actions:hover,
+.public-container table td button.actions:hover {
+  background: rgb(195, 195, 195);
+}
+
+.public-container input,
+.public-container select {
   font-size: 19px;
   color: rgb(62, 62, 62);
 }
 
-.sessions-container .entries-text {
+.public-container .entries-text {
   font-size: 20.5px;
   font-weight: 400;
   color: rgb(52, 52, 52);
 }
 
-.sessions-container table th {
-  font-size: 14px;
+.public-container table th {
+  font-size: 13px;
   color: rgb(27, 27, 27);
 }
 
-.sessions-container table td,
-.sessions-container table td button {
-  font-size: 14px;
+.public-container table td,
+.public-container table td button {
+  font-size: 13px;
 }
 
-.sessions-container table td {
+.public-container table td {
   color: rgb(12, 12, 12);
+  position: relative;
 }
 
-.sessions-container .entries-amount {
+.public-container table tr:hover td button.actions {
+  background-color: white;
+}
+
+.public-container .entries-amount {
   font-size: 20.5px;
 }
 
@@ -726,6 +747,123 @@ button.add-button .plus-icon {
 
 .modal-dialog label {
   color: rgb(52, 52, 52);
+}
+
+.public-container table td .green-status {
+  padding: 1.5px 9px 2.5px 9px;
+  font-size: 10.5px;
+}
+
+.actions-button-container {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  right: 40px;
+  top: 50px;
+  margin-bottom: 30px;
+  z-index: 2;
+  border-radius: 5px;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.actions-button-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.actions-button-container ul li {
+  padding: 2px 12px;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.actions-button-container ul li:hover {
+  background-color: rgb(225, 231, 236);
+}
+
+.actions-button-container ul li a,
+.actions-button-container ul li button,
+.add-student-container a {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+}
+
+
+.actions-button-container ul li button {
+  padding: 0;
+}
+
+.actions-button-container ul li a i,
+.actions-button-container ul li button i {
+  color: rgb(0, 155, 255);
+  font-size: 21px;
+  margin-right: 7px;
+}
+
+.actions-button-container ul li a i.bi-x {
+  font-size: 22px;
+  margin-right: 5px;
+}
+
+.relative-container {
+  position: relative;
+}
+
+.add-student-container {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  border-radius: 5px;
+  width: 200px;
+  padding: 10px 0 0 0;
+  background-color: white;
+  opacity: 1;
+}
+
+.add-student-container ul {
+  position: relatives;
+  padding: 0;
+  list-style: none;
+}
+
+.add-student-container li {
+  transition: .3s ease;
+  padding: 0 10px;
+}
+
+.add-student-container li:hover {
+  background-color: rgb(225, 231, 236);
+}
+
+.add-student-container a .add-icon {
+  color: rgb(0, 155, 255);
+  font-size: 32px;
+}
+
+h3.title-2 {
+  font-size: 20px;
+  font-family: var(--public-font);
+  font-weight: 500;
+  color: rgb(0, 43, 79);
+}
+
+.student-form .title-4 {
+  color: rgb(0, 41, 74);
+  font-weight: 500;
+  font-size: 19px;
+}
+
+.student-form label,
+.student-form input,
+.student-form select {
+  font-size: 18.5px;
 }
 
 
@@ -795,7 +933,7 @@ button.add-button .plus-icon {
 
   .verify-container p,
   .small-container .light-text {
-    font-size: 18px;
+    font-size: 18.5px;
   }
 
   .topbar-left-container {
@@ -819,15 +957,15 @@ button.add-button .plus-icon {
   }
 
   .small-container .title-text {
-    font-size: 17.5px;
+    font-size: 18px;
   }
 
   .page-title {
-    font-size: 23.4px;
+    font-size: 22px;
   }
 
   .page-navigations {
-    font-size: 13.5px;
+    font-size: 12px;
   }
 
   button.add-button {
@@ -844,15 +982,30 @@ button.add-button .plus-icon {
     left: 24%;
   }
 
-  .sessions-container input,
-  .sessions-container select {
+  .public-container input,
+  .public-container select {
     font-size: 18px;
   }
 
-  .sessions-container table th,
-  .sessions-container table td,
-  .sessions-container table td button {
+  .public-container table th,
+  .public-container table td,
+  .public-container table td button {
     font-size: 13px;
+  }
+
+  h3.title-2 {
+    font-size: 18px;
+  }
+
+  .student-form .title-4 {
+    font-size: 17px;
+  }
+
+  .student-form label,
+  .student-form input,
+  .student-form select,
+  .student-form select option {
+    font-size: 16.5px;
   }
 }
 

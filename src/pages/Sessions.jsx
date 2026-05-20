@@ -124,7 +124,7 @@ function Sessions() {
             <div className="container-fluid px-3 pb-4">
                 <div className="row">
                     <div className="col-12 ">
-                        <div className="sessions-container">
+                        <div className="public-container">
                             <div className="d-flex justify-content-between">
                                 <h5 className="title-text">Sessions</h5>
                                 <button type='button' className='btn btn-primary add-button' data-bs-toggle="modal" data-bs-target="#sessionsModal" onClick={hanldeAddSessions}><span className="plus-icon">+</span></button>
@@ -290,7 +290,7 @@ function Sessions() {
             </div>
 
             <div className="container-fluid px-3 pb-4">
-                <div className="sessions-container">
+                <div className="public-container">
                     <div className="d-flex justify-content-between">
                         <h5 className="title-text">Terms</h5>
                         <button className='btn btn-primary add-button' data-bs-toggle="modal" data-bs-target="#termsModal" onClick={handleAddTerms}><span className="plus-icon">+</span></button>
