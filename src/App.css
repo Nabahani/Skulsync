@@ -1009,8 +1009,25 @@ h3.title-2 {
   }
 
   .custom-labels label,
-  label.labelEL {
+  label.labelEL,
+  .actions-button-container ul li a i,
+  .actions-button-container ul li button i {
     font-size: 18px;
+  }
+
+  .add-student-container li a {
+    font-size: 14px;
+  }
+
+  .add-student-container a .add-icon {
+    color: rgb(0, 155, 255);
+    font-size: 30px;
+  }
+
+  .actions-button-container ul li a,
+  .actions-button-container ul li button,
+  .add-student-container a {
+    font-size: 13px;
   }
 }
 
@@ -1053,6 +1070,26 @@ h3.title-2 {
   .custom-labels label,
   label.labelEL {
     font-size: 18px;
+  }
+
+  .add-student-container li a {
+    font-size: 14px;
+  }
+
+  .add-student-container a .add-icon {
+    color: rgb(0, 155, 255);
+    font-size: 30px;
+  }
+
+  .actions-button-container ul li a i,
+  .actions-button-container ul li button i {
+    font-size: 18px;
+  }
+
+  .actions-button-container ul li a,
+  .actions-button-container ul li button,
+  .add-student-container a {
+    font-size: 13px;
   }
 }
 
