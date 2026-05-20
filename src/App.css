@@ -905,35 +905,35 @@ h3.title-2 {
 
   .form-container p,
   .form-container p.login-subtitle {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .form-container input.signup-input,
   .form-container label.signup-label,
   .form-container button.btn,
   .auth-section p.copyright {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .form-container h2.signup-title,
   .form-container h2.login-title,
   .parent-container .title,
   .small-container .bold-text {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   .form-container .ques,
   .parent-container .page-address {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .verify-container h3.title {
-    font-size: 26px;
+    font-size: 25px;
   }
 
   .verify-container p,
   .small-container .light-text {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .topbar-left-container {
@@ -948,24 +948,24 @@ h3.title-2 {
   }
 
   .sidebar-container .navbar-lists .navbar-item a {
-    font-size: 15.3px;
+    font-size: 14.3px;
   }
 
   .parent-container .motto,
   .parent-container .page-contact {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .small-container .title-text {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .page-title {
-    font-size: 21px;
+    font-size: 20px;
   }
 
   .page-navigations {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   button.add-button {
@@ -976,7 +976,7 @@ h3.title-2 {
 
   button.add-button .plus-icon {
     position: absolute;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 600;
     bottom: 1%;
     left: 24%;
@@ -984,28 +984,28 @@ h3.title-2 {
 
   .public-container input,
   .public-container select {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .public-container table th,
   .public-container table td,
   .public-container table td button {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   h3.title-2 {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .student-form .title-4 {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .student-form label,
   .student-form input,
   .student-form select,
   .student-form select option {
-    font-size: 15.5px;
+    font-size: 14.5px;
   }
 }
 
@@ -1013,22 +1013,22 @@ h3.title-2 {
 
   .form-container p,
   .form-container p.login-subtitle {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .form-container input.signup-input,
   .form-container label.signup-label,
   .form-container button.btn,
   .auth-section p.copyright {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .form-container h2.signup-title {
-    font-size: 24px;
+    font-size: 23px;
   }
 
   .form-container .ques {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .column-container {
@@ -1036,11 +1036,11 @@ h3.title-2 {
   }
 
   .verify-container h3.title {
-    font-size: 27px;
+    font-size: 26px;
   }
 
   .verify-container p {
-    font-size: 17px;
+    font-size: 16px;
   }
 }
 
