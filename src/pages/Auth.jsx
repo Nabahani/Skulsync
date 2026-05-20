@@ -169,9 +169,14 @@ function Auth() {
                                             }
                                         </div>
 
-                                        <button type="submit" className={`btn btn-primary mt-3 ${mode === "signin" ? "mb-4" : ""}`}>{mode === "signup" ? "Create Account" : "Sign In"}</button>
+                                        <button type="submit" className={`btn btn-primary mt-3`}>{mode === "signup" ? "Create Account" : "Sign In"}</button>
 
-                                        {mode === "signup" ? <p className="ques mt-3">Already have an account? <button onClick={() => setMode("signin")} className="text-primary ps-0">Sign In</button></p> : ""}
+                                        {
+                                            mode === "signup" ?
+                                                (<p className="ques mt-3">Already have an account? <button onClick={() => setMode("signin")} className="text-primary ps-0">Sign In</button></p>)
+                                                :
+                                                (<p className="ques mt-3">Create new account? <button onClick={() => setMode("signup")} className="text-primary ps-0">Sign Up</button></p>)
+                                        }
                                     </form>
                                 </div>
 

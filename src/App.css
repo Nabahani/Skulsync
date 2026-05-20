@@ -919,7 +919,7 @@ h3.title-2 {
   .form-container h2.login-title,
   .parent-container .title,
   .small-container .bold-text {
-    font-size: 24px;
+    font-size: 23px;
   }
 
   .form-container .ques,
@@ -1007,6 +1007,11 @@ h3.title-2 {
   .student-form select option {
     font-size: 14.5px;
   }
+
+  .custom-labels label,
+  label.labelEL {
+    font-size: 18px;
+  }
 }
 
 @media (max-height: 800px) {
@@ -1023,8 +1028,10 @@ h3.title-2 {
     font-size: 17px;
   }
 
-  .form-container h2.signup-title {
+  .form-container h2.signup-title,
+  .form-container h2.login-title {
     font-size: 23px;
+
   }
 
   .form-container .ques {
@@ -1041,6 +1048,11 @@ h3.title-2 {
 
   .verify-container p {
     font-size: 16px;
+  }
+
+  .custom-labels label,
+  label.labelEL {
+    font-size: 18px;
   }
 }
 
