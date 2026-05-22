@@ -12,7 +12,8 @@ import Classes from './pages/Classes';
 import Invoices from './pages/Invoices';
 import Payments from './pages/Payments';
 import Expenses from './pages/Expenses';
-import StudentsParams from './pages/StudentsParams';
+import StudentsAdd from './pages/StudentsAdd';
+import StudentsActions from './pages/StudentsActions';
 
 function App() {
 
@@ -30,7 +31,8 @@ function App() {
               <Route path='/invoices' element={<Invoices />} />
               <Route path='/payments' element={<Payments />} />
               <Route path='/expenses' element={<Expenses />} />
-              <Route path='/students/:action' element={<StudentsParams />} />
+              <Route path='/students/:action' element={<StudentsAdd />} />
+              <Route path='/students/:action/:id' element={<StudentsActions />} />
             </Route>
 
 

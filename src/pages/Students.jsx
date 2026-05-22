@@ -1,20 +1,36 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate       } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { useStudent } from "../context/StudentContext";
 
 function Students() {
 
-    const { studentsData, setStudentsData, setCurrentStudent } = useStudent();
+    const { studentsData, setStudentsData, setCurrentStudent, setCurrentStudentId } = useStudent();
     const [searchStudents, setSearchStudents] = useState('');
     const [showStudentsFilter, setShowStudentsFilter] = useState(false);
-    const filterSearchStudents = studentsData.filter((data) => (String(data.id).includes(searchStudents) || data.regno.includes(searchStudents) || data.name.includes(searchStudents) || data.gender.includes(searchStudents) || data.dob.includes(searchStudents) || data.class.includes(searchStudents) || data.status.includes(searchStudents)));
+    const filterSearchStudents = studentsData.filter((data) => {
+        const searchString = searchStudents.toLowerCase().trim();
+        if (!searchString) return true;
+
+        return (
+            String(data.id ?? '').toLowerCase().includes(searchString) ||
+            (data.regno ?? '').toLowerCase().includes(searchString) ||
+            (data.fName ?? '').toLowerCase().includes(searchString) ||
+            (data.mName ?? '').toLowerCase().includes(searchString) ||
+            (data.lName ?? '').toLowerCase().includes(searchString) ||
+            (data.gender ?? '').toLowerCase().includes(searchString) ||
+            (data.dob ?? '').toLowerCase().includes(searchString) ||
+            (data.class ?? '').toLowerCase().includes(searchString) ||
+            (data.status ?? '').toLowerCase().includes(searchString)
+        );
+    });
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const lastIndex = currentPage * itemsPerPage;
     const firstIndex = lastIndex - itemsPerPage;
-    const currentPageItems = studentsData.slice(firstIndex, lastIndex);
-    const totalPages = Math.ceil(studentsData.length / itemsPerPage);
+    const currentPageItems = filterSearchStudents.slice(firstIndex, lastIndex);
+    const totalPages = Math.ceil(filterSearchStudents.length / itemsPerPage);
+    const isFiltered =searchStudents.trim() !== '';
     const [toggleActions, setToggleActions] = useState(false);
     const [toggleActionsById, setToggleActionsById] = useState(0);
     const [add, setAdd] = useState(false);
@@ -41,6 +57,10 @@ function Students() {
     useEffect(() => {
         localStorage.setItem('students', JSON.stringify(studentsData));
     }, [studentsData]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchStudents]);
 
 
     return (
@@ -140,9 +160,8 @@ function Students() {
                                         <nav>
                                             <ul>
                                                 <li onClick={() => {
-                                                    setCurrentStudent({id: '', fName: '', mName: '', lName: '', regno: '', dob: '', gender: '', status: '', state: '', lga: '', address: '', gName: '', relation: '', pNo: '', wNo: '', email: '', gAddress: ''});
                                                     navigate('/students/add');
-                                                    }}>
+                                                }}>
                                                     <Link><span className="add-icon">+</span> <span className="add-text">Add Student</span></Link>
                                                 </li>
                                             </ul>
@@ -193,12 +212,12 @@ function Students() {
 
                                             <tbody>
                                                 {
-                                                    searchStudents !== '' ? (
-                                                        filterSearchStudents.length > 0 ? filterSearchStudents.map((data) => (
+                                                    currentPageItems.length > 0 ?
+                                                        currentPageItems.map((data) => (
                                                             <tr key={data.id}>
                                                                 <th>{data.id}</th>
                                                                 <td>{data.regno}</td>
-                                                                <td>{data.name}</td>
+                                                                <td>{data.fName} {data.mName} {data.lName}</td>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td>{data.gender}</td>
@@ -215,13 +234,10 @@ function Students() {
 
                                                                     {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`}>
                                                                         <ul>
-                                                                            <li onClick={() => navigate('/students/view')}>
+                                                                            <li onClick={() => navigate(`/students/view/${data.id}`)}>
                                                                                 <Link><i className="bi bi-eye"></i> View</Link>
                                                                             </li>
-                                                                            <li onClick={() => {
-                                                                                setCurrentStudent(data);
-                                                                                navigate('/students/edit');
-                                                                                }}>
+                                                                            <li onClick={() => navigate(`/students/edit/${data.id}`)}>
                                                                                 <Link><i className="bi bi-pencil-square"></i> Edit</Link>
                                                                             </li>
                                                                             <li onClick={() => deactivateStudent(data.id)}>
@@ -237,65 +253,11 @@ function Students() {
                                                                     </nav>}
                                                                 </td>
                                                             </tr>
-                                                        )) : <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>No matching records found</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    ) : currentPageItems.map((data) => (
-                                                        <tr key={data.id}>
-                                                            <th>{data.id}</th>
-                                                            <td>{data.regno}</td>
-                                                            <td>{data.fName} {data.mName} {data.lName}</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>{data.gender}</td>
-                                                            <td>{data.dob}</td>
-                                                            <td>{data.class}</td>
-                                                            <td><span className="green-status bg-success text-white rounded-pill fw-semibold">{data.status}</span></td>
-                                                            <td className="actions">
-                                                                <button type="button" className="actions" onClick={() => {
-                                                                    setToggleActionsById(data.id);
-                                                                    setToggleActions((prev) => !prev);
-                                                                }}>
-                                                                    <i className="bi bi-three-dots-vertical"></i>
-                                                                </button>
-
-                                                                {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`}>
-                                                                    <ul>
-                                                                        <li>
-                                                                            <Link><i className="bi bi-eye"></i> View</Link>
-                                                                        </li>
-                                                                        <li onClick={() => {
-                                                                            setCurrentStudent(data);
-                                                                            navigate('/students/edit');
-                                                                        }}>
-                                                                            <Link><i className="bi bi-pencil-square"></i> Edit</Link>
-                                                                        </li>
-                                                                        <li onClick={() => {
-                                                                            deactivateStudent(data.id);
-                                                                            setIsActive((prev) => !prev);
-                                                                        }}>
-                                                                            <button><i className={`bi bi-arrow-${isActive ? 'down' : 'up'}`}></i> {isActive ? 'Deactivate' : 'Activate'}</button>
-                                                                        </li>
-                                                                        <li>
-                                                                            <Link><i className="bi bi-x"></i> Suspend</Link>
-                                                                        </li>
-                                                                        <li onClick={() => deleteStudent(data.id)}>
-                                                                            <button><i className="bi bi-trash"></i> Delete</button>
-                                                                        </li>
-                                                                    </ul>
-                                                                </nav>}
-                                                            </td>
-                                                        </tr>
-                                                    ))
+                                                        ))
+                                                    :
+                                                    <tr>
+                                                        <td colSpan={10}>No matching records found</td>
+                                                    </tr>
                                                 }
                                             </tbody>
                                         </table>
@@ -303,7 +265,7 @@ function Students() {
 
                                     <div className="row">
                                         <div className="col-12 col-md-6">
-                                            <p className='entries-amount'>Showing {firstIndex + 1} to {Math.min(lastIndex, studentsData.length)} of {studentsData.length} entries {showStudentsFilter && `(filtered from ${filterSearchStudents.length} total entries)`}</p>
+                                            <p className='entries-amount'>Showing {filterSearchStudents.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filterSearchStudents.length)} of {filterSearchStudents.length} entries {isFiltered && `(filtered from ${studentsData.length} total entries)`}</p>
                                         </div>
 
                                         <div className="col-12 col-md-6 table-responsive">

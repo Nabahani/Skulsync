@@ -703,7 +703,6 @@ button.actions:hover,
 }
 
 .public-container .entries-text {
-  font-size: 20.5px;
   font-weight: 400;
   color: rgb(52, 52, 52);
 }
@@ -842,9 +841,11 @@ button.actions:hover,
   background-color: rgb(225, 231, 236);
 }
 
-.add-student-container a .add-icon {
-  color: rgb(0, 155, 255);
-  font-size: 32px;
+.add-icon {
+  position: absolute;
+  font-size: 26px;
+  bottom: 0;
+  color: rgb(250, 250, 250);
 }
 
 h3.title-2 {
@@ -864,6 +865,25 @@ h3.title-2 {
 .student-form input,
 .student-form select {
   font-size: 18.5px;
+}
+
+.public-border {
+  border: 1px solid rgb(218, 218, 218);
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.public-label {
+  color: rgba(37, 90, 146, 0.75);
+  font-size: 14.5px;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+.public-input {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(17, 17, 17, 0.5);
 }
 
 
@@ -901,7 +921,7 @@ h3.title-2 {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
 
   .form-container p,
   .form-container p.login-subtitle {
@@ -1029,9 +1049,18 @@ h3.title-2 {
   .add-student-container a {
     font-size: 13px;
   }
+
+  .actions-button-container {
+    height: 185px;
+  }
+
+  .public-label,
+  .public-input {
+    font-size: 12px;
+  }
 }
 
-@media (max-height: 800px) {
+/* @media (max-height: 800px) {
 
   .form-container p,
   .form-container p.login-subtitle {
@@ -1080,18 +1109,7 @@ h3.title-2 {
     color: rgb(0, 155, 255);
     font-size: 30px;
   }
-
-  .actions-button-container ul li a i,
-  .actions-button-container ul li button i {
-    font-size: 18px;
-  }
-
-  .actions-button-container ul li a,
-  .actions-button-container ul li button,
-  .add-student-container a {
-    font-size: 13px;
-  }
-}
+} */
 
 @media (max-height: 715px) {
   .sidebar.collapsed {

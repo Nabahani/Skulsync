@@ -35,7 +35,7 @@ export function StudentProvider({ children }) {
             gender: 'Female',
             dob: '2026-11-16',
             class: 'Primary 2',
-            status: 'active',
+            status: 'inactive',
         },
         {
             id: 4,
@@ -101,7 +101,7 @@ export function StudentProvider({ children }) {
             gender: 'Female',
             dob: '2026-11-16',
             class: 'Primary 2',
-            status: 'active',
+            status: 'inactive',
         },
         {
             id: 10,
@@ -156,7 +156,7 @@ export function StudentProvider({ children }) {
             gender: 'Female',
             dob: '2009-11-27',
             class: 'SS 3',
-            status: 'active',
+            status: 'inactive',
         },
         {
             id: 15,
@@ -178,7 +178,7 @@ export function StudentProvider({ children }) {
             gender: 'Female',
             dob: '2024-08-08',
             class: 'Primary 4',
-            status: 'active',
+            status: 'inactive',
         },
         {
             id: 17,
@@ -244,7 +244,7 @@ export function StudentProvider({ children }) {
             gender: 'Female',
             dob: '2024-08-08',
             class: 'Primary 4',
-            status: 'active',
+            status: 'inactive',
         },
         {
             id: 23,
@@ -310,7 +310,7 @@ export function StudentProvider({ children }) {
             gender: 'Female',
             dob: '2011-10-11',
             class: 'JSS 3',
-            status: 'active',
+            status: 'inactive',
         },
         {
             id: 29,
@@ -332,7 +332,7 @@ export function StudentProvider({ children }) {
             gender: 'Male',
             dob: '2020-01-26',
             class: 'Nursery 1',
-            status: 'active',
+            status: 'inactive',
         },
         {
             id: 31,
@@ -354,7 +354,7 @@ export function StudentProvider({ children }) {
             gender: 'Female',
             dob: '2026-11-16',
             class: 'Primary 2',
-            status: 'active',
+            status: 'inactive',
         },
         {
             id: 33,
@@ -398,14 +398,14 @@ export function StudentProvider({ children }) {
             gender: 'Female',
             dob: '2008-04-26',
             class: 'SS 3',
-            status: 'active',
+            status: 'inactive',
         },
     ]);
 
-    const [currentStudent, setCurrentStudent] = useState({id: '', fName: '', mName: '', lName: '', regno: '', dob: '', gender: '', status: '', state: '', lga: '', address: '', gName: '', relation: '', pNo: '', wNo: '', email: '', gAddress: ''});
+    const [isActive, setIsActive] = useState(true);
 
     return (
-        <StudentContext.Provider value={{ studentsData, setStudentsData, currentStudent, setCurrentStudent }}>{children}</StudentContext.Provider>
+        <StudentContext.Provider value={{ studentsData, setStudentsData }}>{children}</StudentContext.Provider>
     )
 }
 
