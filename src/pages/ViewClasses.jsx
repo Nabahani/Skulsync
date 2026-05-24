@@ -1,15 +1,75 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import ScrollTop from "../components/ScrollTop";
 import { useStudent } from "../context/StudentContext";
 
-function Students() {
+function ViewClasses() {
 
-    const { studentsData, setStudentsData, setCurrentStudent, setCurrentStudentId } = useStudent();
+    const { cls } = useParams();
+    const navigate = useNavigate();
+    let currentClass;
+    switch (cls) {
+        case 'ss3':
+            currentClass = 'SS 3';
+            break;
+        case 'ss2':
+            currentClass = 'SS 2';
+            break;
+        case 'ss1':
+            currentClass = 'SS 1';
+            break;
+        case 'jss3':
+            currentClass = 'Jss 3';
+            break;
+        case 'jss2':
+            currentClass = 'Jss 2';
+            break;
+        case 'jss1':
+            currentClass = 'Jss 1';
+            break;
+        case 'primary5':
+            currentClass = 'Primary 5';
+            break;
+        case 'primary4':
+            currentClass = 'Primary 4';
+            break;
+        case 'primary3':
+            currentClass = 'Primary 3';
+            break;
+        case 'primary2':
+            currentClass = 'Primary 2';
+            break;
+        case 'primary1':
+            currentClass = 'Primary 1';
+            break;
+        case 'nursery2':
+            currentClass = 'Nursery 2';
+            break;
+        case 'nursery1':
+            currentClass = 'Nursery 1';
+            break;
+        case 'prenursery':
+            currentClass = 'Pre Nursery';
+            break;
+        default:
+            currentClass = cls;
+    }
+
+
+    const { studentsData, setStudentsData } = useStudent();
+    const [add, setAdd] = useState(false);
+    const currentClassStudent = studentsData.filter((students) => students.class === currentClass);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const lastIndex = currentPage * itemsPerPage;
+    const firstIndex = lastIndex - itemsPerPage;
+    const [toggleActions, setToggleActions] = useState(false);
+    const [toggleActionsById, setToggleActionsById] = useState(0);
     const [searchStudents, setSearchStudents] = useState('');
-    const [showStudentsFilter, setShowStudentsFilter] = useState(false);
-    const filterSearchStudents = studentsData.filter((data) => {
+    const filteredStudents = currentClassStudent.filter((data) => {
         const searchString = searchStudents.toLowerCase().trim();
+
         if (!searchString) return true;
 
         return (
@@ -24,22 +84,17 @@ function Students() {
             (data.status ?? '').toLowerCase().includes(searchString)
         );
     });
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
-    const lastIndex = currentPage * itemsPerPage;
-    const firstIndex = lastIndex - itemsPerPage;
-    const currentPageItems = filterSearchStudents.slice(firstIndex, lastIndex);
-    const totalPages = Math.ceil(filterSearchStudents.length / itemsPerPage);
-    const isFiltered = searchStudents.trim() !== '';
-    const [toggleActions, setToggleActions] = useState(false);
-    const [toggleActionsById, setToggleActionsById] = useState(0);
-    const [add, setAdd] = useState(false);
-    const navigate = useNavigate();
+    const currentPageItems = filteredStudents.slice(firstIndex, lastIndex);
+    const isFiltered = searchStudents !== '';
+    const totalPages = Math.ceil(filteredStudents.length / itemsPerPage) || 1;
+    const [num, setNum] = useState(1);
+    const sessions = localStorage.getItem('sessions-data') ? JSON.parse(localStorage.getItem('sessions-data')) : [];
+    const currentSession = sessions.find((session) => session.status === 'active');
+    const activeSession = `${new Date().getFullYear() - 1}/${new Date().getFullYear()}`;
+    const terms = localStorage.getItem('terms-data') ? JSON.parse(localStorage.getItem('terms-data')) : [];
+    const currentTerm = terms.find((term) => term.status === 'Active');
 
-    const deleteStudent = (id) => {
-        setStudentsData(studentsData.filter((data) => data.id !== id))
-    }
-    const changeStudentStatus = (id) => {
+    const deactivateStudent = (id) => {
         setStudentsData((data) => {
             return data.map((student) => {
                 if (student.id === id) {
@@ -52,97 +107,72 @@ function Students() {
         });
     };
 
-
-    useEffect(() => {
-        localStorage.setItem('students', JSON.stringify(studentsData));
-    }, [studentsData]);
+    const deleteStudent = (id) => {
+        setStudentsData(studentsData.filter(data => data.id !== id));
+    }
 
     useEffect(() => {
         setCurrentPage(1);
     }, [searchStudents]);
 
-
     return (
         <>
             <div className="page">
-                <h4 className="page-title">Students</h4>
+                <h4 className="page-title">Classes</h4>
                 <p className="page-navigations mb-0">
                     <span className='link-container'><Link className='page-link' to="/dashboard">Home</Link ><span className="slash">/</span></span>
-                    <span className="current-path">Students</span>
+                    <span className='link-container'><Link className='page-link' to="/classes">Classes</Link ><span className="slash">/</span></span>
+                    <span className="current-path"><span style={{ textTransform: 'capitalize' }}></span> {currentClass}</span>
                 </p>
             </div>
 
             <div className="container-fluid px-3 pb-4">
                 <div className="row g-4">
-                    <div className="col-sm-6 col-lg-3">
+                    <div className="col-md-4">
                         <div className="small-container">
-                            <Link className='inner-link' to='/students'>
-                                <div className="inner-container">
-                                    <h5 className="title-text">All Students</h5>
+                            <div className="inner-container">
+                                <h5 className="title-text">Class</h5>
 
-                                    <div className="d-flex align-items-center">
-                                        <i className='bi bi-people-fill'></i>
-                                        <div>
-                                            <p className="bold-text">277</p>
-                                            <p className="light-text"><span className="green-text">277</span> Students</p>
-                                        </div>
+                                <div className="d-flex align-items-center">
+                                    <i className='bi bi-house-door-fill'></i>
+                                    <div>
+                                        <p className="bold-text small-text">{currentClass}</p>
+                                        <p className="light-text"><span className="green-text text-info fw-semibold">Section:</span> Primary</p>
                                     </div>
                                 </div>
-                            </Link>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="col-sm-6 col-lg-3">
+                    <div className="col-md-4">
                         <div className="small-container">
-                            <Link className='inner-link' to='/students/active'>
-                                <div className="inner-container">
-                                    <h5 className="title-text">Active Students</h5>
+                            <div className="inner-container">
+                                <h5 className="title-text">Students</h5>
 
-                                    <div className="d-flex align-items-center">
-                                        <i className='bi bi-people-fill'></i>
-                                        <div>
-                                            <p className="bold-text">254</p>
-                                            <p className="light-text"><span className="green-text">254</span> Students</p>
-                                        </div>
+                                <div className="d-flex align-items-center">
+                                    <i className='bi bi-people-fill'></i>
+                                    <div>
+                                        <p className="bold-text small-text">{currentClassStudent.length}</p>
+                                        <p className="light-text"><span className="green-text text-info fw-semibold">Master:</span> Unknown</p>
                                     </div>
                                 </div>
-                            </Link>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="col-sm-6 col-lg-3">
+                    <div className="col-md-4">
                         <div className="small-container">
-                            <Link className='inner-link' to='/students/inactive'>
-                                <div className="inner-container">
-                                    <h5 className="title-text">Inactive Students</h5>
+                            <div className="inner-container">
+                                <h5 className="title-text">Session</h5>
 
-                                    <div className="d-flex align-items-center">
-                                        <i className='bi bi-people-fill'></i>
-                                        <div>
-                                            <p className="bold-text">23</p>
-                                            <p className="light-text"><span className="green-text">23</span> Students</p>
-                                        </div>
+                                <div className="d-flex align-items-center">
+                                    <i className='bi bi-calendar-fill'></i>
+                                    <div>
+                                        <p className="bold-text small-text">{currentSession.title ?? ''}</p>
+                                        <p className="light-text"><span className="green-text text-info fw-semibold">Term</span> {currentTerm.title ?? ''}</p>
                                     </div>
                                 </div>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="col-sm-6 col-lg-3">
-                        <div className="small-container">
-                            <Link className='inner-link' to='/students/alumni'>
-                                <div className="inner-container">
-                                    <h5 className="title-text">Alumni Students</h5>
-
-                                    <div className="d-flex align-items-center">
-                                        <i className='bi bi-people-fill'></i>
-                                        <div>
-                                            <p className="bold-text">0</p>
-                                            <p className="light-text"><span className="green-text">0</span> Students</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
+                            </div>
                         </div>
                     </div>
 
@@ -161,7 +191,7 @@ function Students() {
                                                 <li onClick={() => {
                                                     navigate('/students/add');
                                                 }}>
-                                                    <Link><span className="add-icon">+</span> <span className="add-text">Add Student</span></Link>
+                                                    <Link><span className="add-icon custom text-black">+</span> <span className="add-text ms-4 fw-semibold">Add Student</span></Link>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -213,10 +243,10 @@ function Students() {
                                                 {
                                                     currentPageItems.length > 0 ?
                                                         currentPageItems.map((data, index) => {
-                                                            const isActive = data.status === 'active';
 
+                                                            const isActive = data.status === 'active';
                                                             return (
-                                                                < tr key={data.id} >
+                                                                <tr key={data.id}>
                                                                     <th>{firstIndex + index + 1}</th>
                                                                     <td>{data.regno}</td>
                                                                     <td>{data.fName} {data.mName} {data.lName}</td>
@@ -234,26 +264,25 @@ function Students() {
                                                                             <i className="bi bi-three-dots-vertical"></i>
                                                                         </button>
 
-                                                                        {
-                                                                            toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`}>
-                                                                                <ul>
-                                                                                    <li onClick={() => navigate(`/students/view/${data.id}`)}>
-                                                                                        <Link><i className="bi bi-eye"></i> View</Link>
-                                                                                    </li>
-                                                                                    <li onClick={() => navigate(`/students/edit/${data.id}`)}>
-                                                                                        <Link><i className="bi bi-pencil-square"></i> Edit</Link>
-                                                                                    </li>
-                                                                                    <li onClick={() => { changeStudentStatus(data.id); setIsActive(prev => !prev) }}>
-                                                                                        <button><i className={`bi bi-${isActive ? 'arrow-down' : 'arrow-up'}`}></i> {isActive ? 'Deactivate' : 'Activate'}</button>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <Link><i className="bi bi-x"></i> Suspend</Link>
-                                                                                    </li>
-                                                                                    <li onClick={() => deleteStudent(data.id)}>
-                                                                                        <button><i className="bi bi-trash"></i> Delete</button>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </nav>}
+                                                                        {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`}>
+                                                                            <ul>
+                                                                                <li onClick={() => navigate(`/students/view/${data.id}`)}>
+                                                                                    <Link><i className="bi bi-eye"></i> View</Link>
+                                                                                </li>
+                                                                                <li onClick={() => navigate(`/students/edit/${data.id}`)}>
+                                                                                    <Link><i className="bi bi-pencil-square"></i> Edit</Link>
+                                                                                </li>
+                                                                                <li onClick={() => deactivateStudent(data.id)}>
+                                                                                    <button><i className={`bi bi-${isActive ? 'arrow-down' : 'arrow-up'}`}></i> {isActive ? 'Deactivate' : 'Activate'}</button>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <Link><i className="bi bi-x"></i> Suspend</Link>
+                                                                                </li>
+                                                                                <li onClick={() => deleteStudent(data.id)}>
+                                                                                    <button><i className="bi bi-trash"></i> Delete</button>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </nav>}
                                                                     </td>
                                                                 </tr>
                                                             )
@@ -269,7 +298,7 @@ function Students() {
 
                                     <div className="row">
                                         <div className="col-12 col-md-6">
-                                            <p className='entries-amount'>Showing {filterSearchStudents.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filterSearchStudents.length)} of {filterSearchStudents.length} entries {isFiltered && `(filtered from ${studentsData.length} total entries)`}</p>
+                                            <p className='entries-amount'>Showing {filteredStudents.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filteredStudents.length)} of {filteredStudents.length} entries {isFiltered && `(filtered from ${currentClassStudent.length} total entries)`}</p>
                                         </div>
 
                                         <div className="col-12 col-md-6 table-responsive">
@@ -281,9 +310,11 @@ function Students() {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
+
+            <ScrollTop />
         </>
     )
 }
 
-export default Students;
+export default ViewClasses;

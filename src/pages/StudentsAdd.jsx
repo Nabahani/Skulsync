@@ -9,7 +9,7 @@ function StudentsAdd() {
     const { action } = useParams();
     const { studentsData, setStudentsData } = useStudent();
 
-    let currentStudents;
+    let currentStudents = [];
     if (action === 'active') {
         currentStudents = studentsData.filter((students) => students.status === 'active');
     } else if (action === 'inactive') {
@@ -47,12 +47,25 @@ function StudentsAdd() {
     const [toggleActionsById, setToggleActionsById] = useState(0);
     const [data, setData] = useState({});
     const navigate = useNavigate();
+    const changeStudentStatus = (id) => {
+        setStudentsData(studentsData.map((student) => {
+            if (Number(student.id) === id) {
+                const modifiedStatus = student.status === 'active' ? 'inactive' : 'active';
+                return ({ ...student, status: modifiedStatus });
+            }
+
+            return student;
+        }))
+    };
+    const deleteStudent = (id) => {
+        setStudentsData(studentsData.filter((students) => students.id !== id));
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
 
         if (action === 'add') {
-            const newStudent = { ...data, id: studentsData.length + 1, status: 'active' };
+            const newStudent = { ...data, id: crypto.randomUUID(), status: 'active' };
             setStudentsData([...studentsData, newStudent]);
             navigate('/students');
         } else {
@@ -167,20 +180,20 @@ function StudentsAdd() {
                                     <label htmlFor="class" className="form-label mb-1">Class <span className="text-danger">*</span></label>
                                     <select id="class" className="form-select" onChange={(e) => setData({ ...data, class: e.target.value })} required>
                                         <option>Choose..</option>
-                                        <option value="ss3">SS 3</option>
-                                        <option value="ss2">SS 2</option>
-                                        <option value="ss1">SS 1</option>
-                                        <option value="jss3">Jss 3</option>
-                                        <option value="jss2">Jss 2</option>
-                                        <option value="jss1">Jss 1</option>
-                                        <option value="primary5">Primary 5</option>
-                                        <option value="primary4">Primary 4</option>
-                                        <option value="primary3">Primary 3</option>
-                                        <option value="primary2">Primary 2</option>
-                                        <option value="primary1">Primary 1</option>
-                                        <option value="nursery2">Nursery 2</option>
-                                        <option value="nursery1">Nursery 1</option>
-                                        <option value="pre-nursery">Pre Nursery</option>
+                                        <option value="SS 3">SS 3</option>
+                                        <option value="SS 2">SS 2</option>
+                                        <option value="SS 1">SS 1</option>
+                                        <option value="Jss 3">Jss 3</option>
+                                        <option value="Jss 2">Jss 2</option>
+                                        <option value="Jss 1">Jss 1</option>
+                                        <option value="Primary 5">Primary 5</option>
+                                        <option value="Primary 4">Primary 4</option>
+                                        <option value="Primary 3">Primary 3</option>
+                                        <option value="Primary 2">Primary 2</option>
+                                        <option value="Primary 1">Primary 1</option>
+                                        <option value="Nursery 2">Nursery 2</option>
+                                        <option value="Nursery 1">Nursery 1</option>
+                                        <option value="Pre Nursery">Pre Nursery</option>
                                     </select>
                                 </div>
                                 <div className="col-md-4 mt-2 mt-md-0">
@@ -289,47 +302,51 @@ function StudentsAdd() {
                                         <tbody>
                                             {
                                                 currentPageItems.length > 0 ?
-                                                    currentPageItems.map((data) => (
-                                                        <tr key={data.id}>
-                                                            <th>{data.id}</th>
-                                                            <td>{data.regno}</td>
-                                                            <td>{data.name}</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>{data.gender}</td>
-                                                            <td>{data.dob}</td>
-                                                            <td>{data.class}</td>
-                                                            <td><span className="green-status bg-success text-white rounded-pill fw-semibold">{data.status}</span></td>
-                                                            <td className="actions">
-                                                                <button type="button" className="actions" onClick={() => {
-                                                                    setToggleActionsById(data.id);
-                                                                    setToggleActions((prev) => !prev);
-                                                                }}>
-                                                                    <i className="bi bi-three-dots-vertical"></i>
-                                                                </button>
+                                                    currentPageItems.map((data, index) => {
 
-                                                                {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`}>
-                                                                    <ul>
-                                                                        <li onClick={() => navigate(`/students/view/${data.id}`)}>
-                                                                            <Link><i className="bi bi-eye"></i> View</Link>
-                                                                        </li>
-                                                                        <li onClick={() => navigate(`/students/edit/${data.id}`)}>
-                                                                            <Link><i className="bi bi-pencil-square"></i> Edit</Link>
-                                                                        </li>
-                                                                        <li onClick={() => deactivateStudent(data.id)}>
-                                                                            <button><i className="bi bi-arrow-down"></i> Deactivate</button>
-                                                                        </li>
-                                                                        <li>
-                                                                            <Link><i className="bi bi-x"></i> Suspend</Link>
-                                                                        </li>
-                                                                        <li>
-                                                                            <button><i className="bi bi-trash"></i> Delete</button>
-                                                                        </li>
-                                                                    </ul>
-                                                                </nav>}
-                                                            </td>
-                                                        </tr>
-                                                    ))
+                                                        const isActive = data.status === 'active';
+                                                        return (
+                                                            <tr key={data.id}>
+                                                                <th>{firstIndex + index + 1}</th>
+                                                                <td>{data.regno}</td>
+                                                                <td>{data.fName} {data.mName} {data.lName}</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>{data.gender}</td>
+                                                                <td>{data.dob}</td>
+                                                                <td>{data.class}</td>
+                                                                <td><span className="green-status bg-success text-white rounded-pill fw-semibold">{data.status}</span></td>
+                                                                <td className="actions">
+                                                                    <button type="button" className="actions" onClick={() => {
+                                                                        setToggleActionsById(data.id);
+                                                                        setToggleActions((prev) => !prev);
+                                                                    }}>
+                                                                        <i className="bi bi-three-dots-vertical"></i>
+                                                                    </button>
+
+                                                                    {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`}>
+                                                                        <ul>
+                                                                            <li onClick={() => navigate(`/students/view/${data.id}`)}>
+                                                                                <Link><i className="bi bi-eye"></i> View</Link>
+                                                                            </li>
+                                                                            <li onClick={() => navigate(`/students/edit/${data.id}`)}>
+                                                                                <Link><i className="bi bi-pencil-square"></i> Edit</Link>
+                                                                            </li>
+                                                                            <li onClick={() => changeStudentStatus(data.id)}>
+                                                                                <button><i className={`bi bi-${isActive ? 'arrow-down' : 'arrow-up'}`}></i> {isActive ? 'Deactivate' : 'Activate'}</button>
+                                                                            </li>
+                                                                            <li>
+                                                                                <Link><i className="bi bi-x"></i> Suspend</Link>
+                                                                            </li>
+                                                                            <li onClick={() => deleteStudent(data.id)}>
+                                                                                <button><i className="bi bi-trash"></i> Delete</button>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </nav>}
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
                                                     :
                                                     <tr>
                                                         <td colSpan={10}>No matching records found</td>

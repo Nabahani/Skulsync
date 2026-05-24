@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import ScrollTop from "../components/ScrollTop";
 
 function Classes() {
 
+    const navigate = useNavigate();
     const [classes, setClasses] = useState(localStorage.getItem('classes') ? JSON.parse(localStorage.getItem('classes')) : [
         {
             id: 1,
@@ -176,10 +177,10 @@ function Classes() {
                 </p>
             </div>
 
-            <div className="container-fluid">
+            <div className="container-fluid px-3 pb-4">
                 <div className="row justify-content-center">
                     <div className="col-12">
-                        <div className="public-container mx-1">
+                        <div className="public-container">
                             <div className="d-flex justify-content-between relative-container">
                                 <h5 className="title-text">Classes</h5>
                                 <button type='button' className='btn btn-sm btn-primary' data-bs-toggle="modal" data-bs-target="#classModal" onClick={() => handleAddClass()} style={{ position: 'relative' }}>
@@ -187,7 +188,7 @@ function Classes() {
                                 </button>
                             </div>
 
-                            <div className="px-1">
+                            <div>
                                 <div className="row">
                                     <div className="col-12 col-sm-6">
                                         <label htmlFor="show" className="form-label my-1">Show:</label>
@@ -232,8 +233,8 @@ function Classes() {
                                                                 <td>{data.section}</td>
                                                                 <td>{data.program}</td>
                                                                 <td>{data.status}</td>
-                                                                <td className="actions">
-                                                                    <button className="btn btn-sm btn-info px-1 me-1" onClick={() => (data)}>
+                                                                <td className="actions d-flex">
+                                                                    <button className="btn btn-sm btn-info px-1 me-1" onClick={() => navigate(`/classes/view/${data.title.replace(' ', '').toLowerCase()}`)}>
                                                                         <i className="bi bi-eye-fill"></i>
                                                                     </button>
 

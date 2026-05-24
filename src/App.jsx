@@ -14,6 +14,7 @@ import Payments from './pages/Payments';
 import Expenses from './pages/Expenses';
 import StudentsAdd from './pages/StudentsAdd';
 import StudentsActions from './pages/StudentsActions';
+import ViewClasses from './pages/ViewClasses';
 
 function App() {
 
@@ -27,12 +28,13 @@ function App() {
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/sessions' element={<Sessions />} />
               <Route path='/students' element={<Students />} />
+              <Route path='/students/:action' element={<StudentsAdd />} />
+              <Route path='/students/:action/:id' element={<StudentsActions />} />
               <Route path='/classes' element={<Classes />} />
+              <Route path='/classes/view/:cls' element={<ViewClasses />} />
               <Route path='/invoices' element={<Invoices />} />
               <Route path='/payments' element={<Payments />} />
               <Route path='/expenses' element={<Expenses />} />
-              <Route path='/students/:action' element={<StudentsAdd />} />
-              <Route path='/students/:action/:id' element={<StudentsActions />} />
             </Route>
 
 

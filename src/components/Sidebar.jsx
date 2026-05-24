@@ -199,7 +199,7 @@ function Sidebar({ collapsed }) {
                             </span>
 
                             <span className="dropdown-icon">
-                                <i className={`bi bi-chevron-down ${openDropdown === "payments" ? "rotate" : ""}`}></i>
+                                <i className={`bi bi-chevron-down ${openDropdown === "payments3" ? "rotate" : ""}`}></i>
                             </span>
                         </a>
 
