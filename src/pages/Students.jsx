@@ -161,7 +161,7 @@ function Students() {
                                                 <li onClick={() => {
                                                     navigate('/students/add');
                                                 }}>
-                                                    <Link><span className="add-icon">+</span> <span className="add-text">Add Student</span></Link>
+                                                    <Link><span className="add-icon text-black">+</span> <span className="add-text ps-4 fw-semibold">Add Student</span></Link>
                                                 </li>
                                             </ul>
                                         </nav>

@@ -856,7 +856,7 @@ h3.title-2 {
   color: rgb(0, 43, 79);
 }
 
-.student-form .title-4 {
+.title-4 {
   color: rgb(0, 41, 74);
   font-weight: 500;
   font-size: 19px;
@@ -890,6 +890,61 @@ h3.title-2 {
 .small-container .small-text {
   font-size: 17px;
 }
+
+.public-container table td .smaller-text {
+  font-size: 11px;
+}
+
+.small-black-text {
+  font-size: 13.5px;
+  font-weight: bold;
+}
+
+.not-found-page {
+  background-color: rgb(24, 33, 44);
+  width: 100vw;
+  height: 100vh;
+}
+
+.not-found-page p {
+  color: rgb(127, 132, 164);
+  font-size: 22px;
+  font-family: var(--public-font);
+}
+
+.title-5 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, .7);
+}
+
+.title-5 .text6 {
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.custom-font {
+  font-size: 17px;
+}
+
+.public-bg {
+  background-color: rgb(246, 250, 253);
+}
+
+.small-icon {
+  position: absolute;
+  font-size: 24px;
+  left: 10px;
+  bottom: 1px;
+}
+
+div.myFont {
+  font-size: 18px;
+}
+
+
+
 
 
 
@@ -975,7 +1030,8 @@ h3.title-2 {
   }
 
   .parent-container .motto,
-  .parent-container .page-contact {
+  .parent-container .page-contact,
+  .custom-font {
     font-size: 14px;
   }
 
@@ -1001,18 +1057,24 @@ h3.title-2 {
     position: absolute;
     font-size: 24px;
     font-weight: 600;
-    bottom: 1%;
-    left: 24%;
+    bottom: 2px;
+    left: 9px;
+  }
+
+  button.add-button .plus-icon.unique {
+    left: 11px;
   }
 
   .public-container input,
-  .public-container select {
+  .public-container select,
+  div.myFont {
     font-size: 16px;
   }
 
   .public-container table th,
   .public-container table td,
-  .public-container table td button {
+  .public-container table td button,
+  .title-5 .text6 {
     font-size: 11px;
   }
 
@@ -1039,7 +1101,8 @@ h3.title-2 {
     font-size: 18px;
   }
 
-  .add-student-container li a {
+  .add-student-container li a,
+  .title-5 {
     font-size: 14px;
   }
 
@@ -1061,6 +1124,10 @@ h3.title-2 {
   .public-label,
   .public-input {
     font-size: 12px;
+  }
+
+  .not-found-page p {
+    font-size: 19px;
   }
 }
 

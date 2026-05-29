@@ -15,6 +15,10 @@ import Expenses from './pages/Expenses';
 import StudentsAdd from './pages/StudentsAdd';
 import StudentsActions from './pages/StudentsActions';
 import ViewClasses from './pages/ViewClasses';
+import InvoicesParams2 from './pages/InvoicesParams2';
+import InvoicesParams3 from './pages/InvoicesParams3';
+import { InvoicesProvider } from './context/InvoicesContext';
+import NotFound from './pages/NotFound';
 
 function App() {
 
@@ -22,27 +26,32 @@ function App() {
     <div className='auth-section min-vh-100'>
       <AuthProvider>
         <StudentProvider>
+          <InvoicesProvider>
 
-          <Routes>
-            <Route element={<MainLayout />}>
-              <Route path='/dashboard' element={<Dashboard />} />
-              <Route path='/sessions' element={<Sessions />} />
-              <Route path='/students' element={<Students />} />
-              <Route path='/students/:action' element={<StudentsAdd />} />
-              <Route path='/students/:action/:id' element={<StudentsActions />} />
-              <Route path='/classes' element={<Classes />} />
-              <Route path='/classes/view/:cls' element={<ViewClasses />} />
-              <Route path='/invoices' element={<Invoices />} />
-              <Route path='/payments' element={<Payments />} />
-              <Route path='/expenses' element={<Expenses />} />
-            </Route>
+            <Routes>
+              <Route element={<MainLayout />}>
+                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/sessions' element={<Sessions />} />
+                <Route path='/students' element={<Students />} />
+                <Route path='/students/:action' element={<StudentsAdd />} />
+                <Route path='/students/:action/:id' element={<StudentsActions />} />
+                <Route path='/classes' element={<Classes />} />
+                <Route path='/classes/view/:cls' element={<ViewClasses />} />
+                <Route path='/invoices' element={<Invoices />} />
+                <Route path='/invoices/:action' element={<InvoicesParams2 />} />
+                <Route path='/invoices/:action/:id' element={<InvoicesParams3 />} />
+                <Route path='/payments' element={<Payments />} />
+                <Route path='/expenses' element={<Expenses />} />
+              </Route>
 
 
-            <Route path='/auth/:userMode' element={<Auth />} />
-            <Route path='/' element={<Auth />} />
-            <Route path='/email/verify' element={<EmailVerification />} />
-          </Routes>
+              <Route path='/auth/:userMode' element={<Auth />} />
+              <Route path='/' element={<Auth />} />
+              <Route path='/email/verify' element={<EmailVerification />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
 
+          </InvoicesProvider>
         </StudentProvider>
       </AuthProvider>
     </div>
