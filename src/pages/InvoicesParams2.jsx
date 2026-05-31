@@ -10,9 +10,9 @@ function InvoicesParams2() {
     const { action } = useParams();
     const navigate = useNavigate();
 
-    const expectedParams = 'single' || 'bulk';
+    const expectedParams = ['single', 'bulk'];
     useEffect(() => {
-        if (action !== expectedParams) {
+        if (!expectedParams.includes(action)) {
             navigate('/404');
         }
     }, [action, navigate]);

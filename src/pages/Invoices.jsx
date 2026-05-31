@@ -38,14 +38,14 @@ function Invoices() {
     const [toggleActions, setToggleActions] = useState(false);
     const [toggleActionsById, setToggleActionsById] = useState();
     const [selectedInvoices, setSelectedInvoices] = useState([]);
+    const [selectedAction, setSelectedAction] = useState('');
 
     function deleteInvoice(id) {
-        setInvoices(invoices.filter((invcs) => invcs.uniqueId !== id));
+        setInvoices(invoices.filter((invcs) => invcs.id !== id));
     }
 
     function handleCheckedInvoice(id, checked) {
         setSelectedInvoices((prev) => {
-
             if (checked) {
                 return [...prev, id];
             }
@@ -54,6 +54,33 @@ function Invoices() {
                 (item) => item !== id
             );
         });
+    }
+
+    function handleSelectedAction(e, action) {
+        e.preventDefault();
+
+        if (action === '') return;
+
+        if (action === 'Delete') {
+            if (!selectedInvoices.length > 0) {
+                alert('Please select an invoice');
+                event.target.value = '';
+                return;
+            }
+
+            const confirmDelete = window.confirm(`Are you sure you want to delete ${selectedInvoices.length} selected invoice(s)?`);
+            if (confirmDelete) {
+                selectedInvoices.map((item) => setInvoices((prev) =>
+                    prev.filter((invs) => !selectedInvoices.includes(invs.id))
+                ));
+                setSelectedInvoices([]);
+                setCurrentPage(1);
+                event.target.value = '';
+                return;
+            } else {
+                event.target.value = '';
+            }
+        }
     }
 
     useEffect(() => {
@@ -113,7 +140,17 @@ function Invoices() {
                                 <table className="table table-hover align-middle">
                                     <thead>
                                         <tr>
-                                            <th><input type="checkbox" name="" id="" className="form-check-input" checked /></th>
+                                            <th><input type="checkbox" name="" id="" className="form-check-input" onChange={(e) => {
+                                                const checked = e.target.checked;
+
+                                                setSelectedInvoices((prev) => {
+                                                    if (checked) {
+                                                        return currentPageItems.map((item) => item.id);
+                                                    }
+
+                                                    return [];
+                                                })
+                                            }} checked={currentPageItems.length > 0 && currentPageItems.every((item) => selectedInvoices.includes(item.id))} /></th>
                                             <th>S/N</th>
                                             <th>ID</th>
                                             <th>Student</th>
@@ -137,7 +174,7 @@ function Invoices() {
                                                     const isActive = data.status === 'active';
                                                     return (
                                                         <tr key={data.id}>
-                                                            <td><input type="checkbox" id={data.id} className="form-check-input" onChange={(e) => handleCheckedInovice(data.id, e.target.checked)} checked={selectedInvoices.includes(data.id)} /></td>
+                                                            <td><input type="checkbox" id={data.id} className="form-check-input" onChange={(e) => handleCheckedInvoice(data.id, e.target.checked)} checked={selectedInvoices.includes(data.id)} /></td>
                                                             <th>{firstIndex + index + 1}</th>
                                                             <td>{data.id}</td>
                                                             <td>{data.student} ({data.regno})</td>
@@ -169,7 +206,7 @@ function Invoices() {
                                                                         <li onClick={() => navigate(`/invoices/edit/${data.id}`)}>
                                                                             <Link><i className="bi bi-pencil-square"></i> <span className="" style={{ fontSize: '17px' }}>Edit</span></Link>
                                                                         </li>
-                                                                        <li onClick={() => deleteInvoice(data.uniqueId)}>
+                                                                        <li onClick={() => deleteInvoice(data.id)}>
                                                                             <button><i className="bi bi-trash"></i> <span className="" style={{ fontSize: '17px' }}>Delete</span></button>
                                                                         </li>
                                                                     </ul>
@@ -201,10 +238,10 @@ function Invoices() {
                         <hr className="mt-0" />
 
 
-                        <form>
+                        <form onSubmit={(e) => handleSelectedAction(e, selectedAction)}>
                             <div className="row align-items-center g-2 table-responsive">
                                 <div className="col-4">
-                                    <select className="form-select" required>
+                                    <select className="form-select" onChange={(e) => setSelectedAction(e.target.value)} required>
                                         <option value="">-- Select Action --</option>
                                         <option value="Delete">Delete</option>
                                         <option value="Print">Print</option>
