@@ -26,13 +26,13 @@ function TopBar({ onToggle }) {
                 <div className="topbar-right-container" onClick={() => setOpenProfileMenu(prev => !prev)}>
                     <p className="mt-1 mb-0 d-flex justify-content-between align-items-center">
                         <i className="bi bi-person-circle mb-1"></i>
-                        <span className="user-name ms-2 d-none d-sm-inline-block">{userDetails.fName}</span>
+                        <span className="user-name ms-2 d-none d-sm-inline-block">{userDetails?.fName ?? 'User'}</span>
                         <i className="bi bi-caret-down-fill dropdown-icon d-none d-sm-inline-block"></i>
                     </p>
 
                     <div className={`profile-dropmenu ${openProfileMenu ? "open" : ""}`}>
                         <div className="text-center">
-                            <p className="profile-user">{userDetails.fName} {userDetails.lName}</p>
+                            <p className="profile-user">{userDetails?.fName ?? 'User'} {userDetails?.lName ?? 'User'}</p>
                             <p className="profile-role">super-admin</p>
                         </div>
 

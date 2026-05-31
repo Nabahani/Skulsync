@@ -30,7 +30,7 @@ function EmailVerification() {
                         <p>If you're facing a problem click on the button below to verify again.</p>
 
                         <button className="btn mt-2 mb-3 px-3" disabled>Verifying... ({num})</button>
-                        <p className="mt-2 mb-0">Back to <Link className="text-decoration-none" to={'/auth'}>Sign In</Link></p>
+                        <p className="mt-2 mb-0">Back to <Link className="text-decoration-none" to={'/auth/signin'}>Sign In</Link></p>
                     </div>
 
                     <p className="copyright mt-3 mb-4">&copy; Copyright <span className="sgr">SGR</span> 2026</p>

@@ -11,6 +11,7 @@ import Students from './pages/Students';
 import Classes from './pages/Classes';
 import Invoices from './pages/Invoices';
 import Payments from './pages/Payments';
+import PaymentsDetails from './pages/PaymentsDetails';
 import Expenses from './pages/Expenses';
 import StudentsAdd from './pages/StudentsAdd';
 import StudentsActions from './pages/StudentsActions';
@@ -41,6 +42,7 @@ function App() {
                 <Route path='/invoices/:action' element={<InvoicesParams2 />} />
                 <Route path='/invoices/:action/:id' element={<InvoicesParams3 />} />
                 <Route path='/payments' element={<Payments />} />
+                <Route path='/payments/:action/:id' element={<PaymentsDetails />} />
                 <Route path='/expenses' element={<Expenses />} />
               </Route>
 
