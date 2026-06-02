@@ -1,12 +1,13 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useInvoices } from "../context/InvoicesContext";
 import { useEffect } from "react";
+import ScrollTop from "../components/ScrollTop";
 
-function PaymentsDetails() {
+function ExpensesDetails() {
 
     const { action, id } = useParams();
     const navigate = useNavigate();
-    const expectedActions = ['print', 'view'];
+    const expectedActions = ['edit', 'view'];
 
     useEffect(() => {
         if (!expectedActions.includes(action)) {
@@ -14,7 +15,7 @@ function PaymentsDetails() {
         }
     }, [action, navigate]);
 
-    const { invoices } = useInvoices();
+    const { invoices, setInvoices } = useInvoices();
     const currentStudentDetails = invoices.find((student) => student.id === id);
 
     return (
@@ -23,22 +24,28 @@ function PaymentsDetails() {
                 <h4 className="page-title">Payments</h4>
                 <p className="page-navigations mb-0">
                     <span className='link-container' onClick={() => navigate('/dashboard')}><Link className='page-link' to="/dashboard">Home</Link ><span className="slash">/</span></span>
-                    <span className='link-container' onClick={() => navigate('/payments')}><Link className='page-link' to="/payments">Payments</Link ><span className="slash">/</span></span>
+                    <span className='link-container' onClick={() => navigate('/expenses')}><Link className='page-link' to="/expenses">Expenses</Link ><span className="slash">/</span></span>
                     <span className="current-path" style={{ textTransform: 'capitalize' }}>{action}</span>
                 </p>
             </div>
 
             <div className="container-fluid pb-4">
                 <div className="row justify-content-center">
-                    <div className="col-md-10">
+                    <div className="col-11 col-md-10 col-lg-8">
                         <div className="public-container px-3 py-4">
 
-                            <h3 className="title-2 text-center mt-2 mb-1">Payment Details</h3>
+                            <div className="text-center">
+                                <h3 className="title-2 text-center mt-2 mb-1">
+                                    <i className="bi bi-credit-card-2-front-fill"></i>
+                                </h3>
+                                <h3 className="title-2 text-center mt-2 mb-1">Expense Details</h3>
+                            </div>
+
                             <div className="row">
                                 <div className="col-12">
                                     <div className="public-border public-bg mt-3">
-                                        <span className="public-label">Student : </span>
-                                        <span className="public-input">{currentStudentDetails?.student ?? ''}</span>
+                                        <span className="public-label">Title : </span>
+                                        <span className="public-input">{currentStudentDetails?.title ?? ''}</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -49,20 +56,14 @@ function PaymentsDetails() {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="public-border public-bg mt-3">
-                                        <span className="public-label">Invoice : </span>
-                                        <span className="public-input">{currentStudentDetails?.id ?? ''}</span>
+                                        <span className="public-label">Category : </span>
+                                        <span className="public-input">{currentStudentDetails?.category ?? ''}</span>
                                     </div>
                                 </div>
-                                <div className="col-md-6">
-                                    <div className="public-border public-bg mt-3">
-                                        <span className="public-label">Payment Method : </span>
-                                        <span className="public-input">{currentStudentDetails?.paymentMethod ?? ''}</span>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
+                                <div className="col-md-12">
                                     <div className="public-border public-bg mt-3">
                                         <span className="public-label">Amount : </span>
-                                        <span className="public-input">&#8358{currentStudentDetails?.total ?? ''}</span>
+                                        <span className="public-input">&#8358;{currentStudentDetails?.total ?? String(currentStudentDetails?.amount).toLocaleString()}</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -80,7 +81,7 @@ function PaymentsDetails() {
                                 <div className="col-12">
                                     <div className="public-border public-bg mt-3">
                                         <span className="public-label">Note : </span>
-                                        <span className="public-input">Bulk payment (FIFO)</span>
+                                        <span className="public-input"></span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -97,16 +98,27 @@ function PaymentsDetails() {
                                 </div>
                             </div>
 
-                            <div className="text-center mt-2">
-                                <button className="btn btn-info me-3 mt-3 py-1"><i className="bi bi-printer-fill"></i> Print</button>
-                                <button className="btn btn-warning ps-3 mt-3 py-1 position-relative" onClick={() => navigate('/payments')}><i className="bi bi-x  small-icon"></i> <span className="ps-3">Cancel</span></button>
+                            <hr className="mb-2" />
+
+                            <div className="text-center">
+                                <button className="btn btn-primary me-2 mt-2 py-1">Edit</button>
+                                <button className="btn btn-success me-2 mt-2 py-1" onClick={() => {
+                                    setInvoices((prev) =>
+                                        prev.map((item) =>
+                                            item.id === id ? { ...prev, status2: 'Successful' } : item)
+                                    );
+                                    navigate('/expenses');
+                                }}>Approve</button>
+                                <button className="btn btn-secondary mt-2 py-1" onClick={() => navigate('/expenses')}>Reject</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <ScrollTop />
         </>
     )
 }
 
-export default PaymentsDetails;
+export default ExpensesDetails;

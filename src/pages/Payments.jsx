@@ -24,6 +24,8 @@ function Payments() {
                 (data.date ?? '').toLowerCase().includes(searchString)
             );
         }
+
+        return false;
     });
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -50,10 +52,11 @@ function Payments() {
     ];
     const currentYear = new Date().getFullYear();
     const currentMonth = months[new Date().getMonth()];
-    let totalPayment = 0;
-    filteredInvoices.length > 0 ? filteredInvoices.map((invs) => {
-        totalPayment += Number(invs.total.replace(',', ''));
-    }) : 0;
+    const totalPayment = (filteredInvoices ?? []).reduce(
+        (sum, invs) =>
+            sum + Number((invs.total ?? '0').replace(',', '')),
+        0
+    );
 
     useEffect(() => {
         setCurrentPage(1);

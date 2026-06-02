@@ -29,7 +29,7 @@ export function InvoicesProvider({ children }) {
             session: '2025/2026',
             term: 'Second term',
             status1: 'Unpaid',
-            status2: 'Active',
+            status2: 'Pending',
             date: '2026-02-15'
         },
         {
@@ -137,7 +137,7 @@ export function InvoicesProvider({ children }) {
             session: '2025/2026',
             term: 'Second term',
             status1: 'Unpaid',
-            status2: 'Active',
+            status2: 'Pending',
             date: '2026-02-15'
         },
         {
@@ -245,7 +245,7 @@ export function InvoicesProvider({ children }) {
             session: '2025/2026',
             term: 'Second term',
             status1: 'Unpaid',
-            status2: 'Active',
+            status2: 'Pending',
             date: '2026-02-15'
         },
         {
@@ -317,7 +317,7 @@ export function InvoicesProvider({ children }) {
             session: '2025/2026',
             term: 'Second term',
             status1: 'Paid',
-            status2: 'Successful',
+            status2: 'Pending',
             date: '2026-01-28'
         },
         {
@@ -335,7 +335,7 @@ export function InvoicesProvider({ children }) {
             session: '2025/2026',
             term: 'Second term',
             status1: 'Paid',
-            status2: 'Successful',
+            status2: 'Pending',
             date: '2026-01-28'
         },
         {
@@ -353,7 +353,7 @@ export function InvoicesProvider({ children }) {
             session: '2025/2026',
             term: 'Second term',
             status1: 'Unpaid',
-            status2: 'Active',
+            status2: 'Pending',
             date: '2026-02-15'
         },
         {
@@ -371,7 +371,7 @@ export function InvoicesProvider({ children }) {
             session: '2025/2026',
             term: 'Second term',
             status1: 'Paid',
-            status2: 'Successful',
+            status2: 'Pending',
             date: '2026-01-28'
         },
         {
@@ -389,7 +389,7 @@ export function InvoicesProvider({ children }) {
             session: '2025/2026',
             term: 'Second term',
             status1: 'Paid',
-            status2: 'Successful',
+            status2: 'Pending',
             date: '2026-01-28'
         },
         {

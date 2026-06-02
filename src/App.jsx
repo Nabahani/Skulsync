@@ -13,6 +13,8 @@ import Invoices from './pages/Invoices';
 import Payments from './pages/Payments';
 import PaymentsDetails from './pages/PaymentsDetails';
 import Expenses from './pages/Expenses';
+import ExpensesDetails from './pages/ExpensesDetails';
+import AddExpenses from './pages/AddExpenses';
 import StudentsAdd from './pages/StudentsAdd';
 import StudentsActions from './pages/StudentsActions';
 import ViewClasses from './pages/ViewClasses';
@@ -44,6 +46,8 @@ function App() {
                 <Route path='/payments' element={<Payments />} />
                 <Route path='/payments/:action/:id' element={<PaymentsDetails />} />
                 <Route path='/expenses' element={<Expenses />} />
+                <Route path='/expenses/:action/:id' element={<ExpensesDetails />} />
+                <Route path='/expenses/:action/' element={<AddExpenses />} />
               </Route>
 
 
