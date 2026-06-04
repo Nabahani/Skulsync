@@ -943,6 +943,10 @@ div.myFont {
   font-size: 18px;
 }
 
+.picture {
+  font-size: 3rem;
+}
+
 
 
 
@@ -1128,6 +1132,10 @@ div.myFont {
 
   .not-found-page p {
     font-size: 19px;
+  }
+
+  .picture {
+    font-size: 2rem;
   }
 }
 

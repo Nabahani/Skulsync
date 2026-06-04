@@ -2,17 +2,17 @@ import { useNavigate } from "react-router-dom";
 import ScrollTop from "../components/ScrollTop";
 import { useState, useEffect } from "react";
 import Pagination from "../components/Pagination";
-import { useSections } from "../context/SectionsContext";
+import { usePrograms } from "../context/ProgramsContext";
 
 
-function Sections() {
+function Programs() {
 
     const navigate = useNavigate();
-    const { sections, setSections } = useSections();
+    const { programs, setPrograms } = usePrograms();
 
-    const [searchSections, setSearchSections] = useState('');
-    const filterSearchSections = sections.filter((data) => {
-        const searchString = searchSections.toLowerCase().trim();
+    const [searchPrograms, setSearchPrograms] = useState('');
+    const filterSearchPrograms = programs.filter((data) => {
+        const searchString = searchPrograms.toLowerCase().trim();
 
         if (!searchString) return true;
 
@@ -27,48 +27,48 @@ function Sections() {
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const lastIndex = currentPage * itemsPerPage;
     const firstIndex = lastIndex - itemsPerPage;
-    const currentPageItems = filterSearchSections.slice(firstIndex, lastIndex);
-    const totalPages = Math.ceil(filterSearchSections.length / itemsPerPage) || 1;
-    const isFiltered = searchSections.trim() !== '';
-    const [sectionsFormData, setSectionsFormData] = useState({ id: '', title: '', status: '', date: '' });
+    const currentPageItems = filterSearchPrograms.slice(firstIndex, lastIndex);
+    const totalPages = Math.ceil(filterSearchPrograms.length / itemsPerPage) || 1;
+    const isFiltered = searchPrograms.trim() !== '';
+    const [programsFormData, setProgramsFormData] = useState({ id: '', title: '', status: '', date: '' });
     const [isEditing, setIsEditing] = useState(false);
 
-    const deleteSection = (id) => {
-        const section = sections.find((section) => section.id === id);
+    const deleteProgram = (id) => {
+        const program = programs.find((program) => program.id === id);
 
-        if (section && window.confirm(`Are you sure you want to delete ${section.title ?? 'this'} section?`)) {
-            setSections(prev => prev.filter((section) => section.id !== id));
+        if (program && window.confirm(`Are you sure you want to delete ${program.title ?? 'this'} program?`)) {
+            setPrograms(prev => prev.filter((program) => program.id !== id));
         }
     }
-    const handleAddSections = () => {
-        setSectionsFormData({ title: '', status: '' });
+    const handleAddPrograms = () => {
+        setProgramsFormData({ title: '', status: '' });
         setIsEditing(false);
         return;
     }
-    const handleEditSections = (data) => {
-        setSectionsFormData(data);
+    const handleEditPrograms = (data) => {
+        setProgramsFormData(data);
         setIsEditing(true);
         return;
     }
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!sectionsFormData.title || !sectionsFormData.status) {
+        if (!programsFormData.title || !programsFormData.status) {
             return;
         }
 
         if (!isEditing) {
-            const newSectionData = {
-                title: sectionsFormData.title,
-                status: sectionsFormData.status,
+            const newProgramData = {
+                title: programsFormData.title,
+                status: programsFormData.status,
                 id: String(crypto.randomUUID()),
                 date: new Date().toISOString().split('T')[0]
             }
-            setSections([...sections, newSectionData]);
+            setPrograms([...programs, newProgramData]);
             return;
         } else {
-            setSections((prev) => prev.map(
-                (section) => section.id === sectionsFormData.id ? sectionsFormData : section
+            setPrograms((prev) => prev.map(
+                (program) => program.id === programsFormData.id ? programsFormData : program
             ));
             return;
         }
@@ -76,15 +76,15 @@ function Sections() {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [searchSections, itemsPerPage]);
+    }, [searchPrograms, itemsPerPage]);
 
     return (
         <>
             <div className="page">
-                <h4 className="page-title font-tt">Sections</h4>
+                <h4 className="page-title font-tt">Programs</h4>
                 <p className="page-navigations mb-0">
                     <span className='link-container' onClick={() => navigate('/dashboard')}><span className='page-link'>Home</span ><span className="slash">/</span></span>
-                    <span className="current-path">Sections</span>
+                    <span className="current-path">Programs</span>
                 </p>
             </div>
 
@@ -93,9 +93,9 @@ function Sections() {
                     <div className="col-12">
                         <div className="public-container mx-1">
                             <div className="d-flex justify-content-between relative-container">
-                                <h5 className="title-text">Sections</h5>
-                                <button type='button' className='btn btn-sm btn-primary' style={{ position: 'relative' }} data-bs-toggle="modal" data-bs-target="#sectionsModal" onClick={() => handleAddSections()}>
-                                    <span className="add-icon">+</span> <span className="ms-4 fw-semibold">Sections</span>
+                                <h5 className="title-text">Programs</h5>
+                                <button type='button' className='btn btn-sm btn-primary' style={{ position: 'relative' }} data-bs-toggle="modal" data-bs-target="#programsModal" onClick={() => handleAddPrograms()}>
+                                    <span className="add-icon">+</span> <span className="ms-4 fw-semibold">Programs</span>
                                 </button>
                             </div>
 
@@ -114,7 +114,7 @@ function Sections() {
 
                                     <div className="col-12 col-sm-6">
                                         <label htmlFor="search" className="form-label my-1">Search:</label>
-                                        <input type="search" name="search" id="search" className="form-control p-1 px-2" style={{ width: "250px" }} onChange={(e) => setSearchSections(e.target.value)} />
+                                        <input type="search" name="search" id="search" className="form-control p-1 px-2" style={{ width: "250px" }} onChange={(e) => setSearchPrograms(e.target.value)} />
                                     </div>
                                 </div>
 
@@ -152,11 +152,11 @@ function Sections() {
                                                                     <td></td>
                                                                     <td></td>
                                                                     <td className='d-flex'>
-                                                                        <button className="btn btn-sm btn-primary px-1 me-1" data-bs-toggle="modal" data-bs-target="#sectionsModal" onClick={() => handleEditSections(data)}>
+                                                                        <button className="btn btn-sm btn-primary px-1 me-1" data-bs-toggle="modal" data-bs-target="#programsModal" onClick={() => handleEditPrograms(data)}>
                                                                             <i className="bi bi-pencil-square"></i>
                                                                         </button>
 
-                                                                        <button className="btn btn-sm btn-danger px-1" onClick={() => deleteSection(data.id)}>
+                                                                        <button className="btn btn-sm btn-danger px-1" onClick={() => deleteProgram(data.id)}>
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </td>
@@ -174,7 +174,7 @@ function Sections() {
 
                                     <div className="row">
                                         <div className="col-12 col-md-6">
-                                            <p className='entries-amount'>Showing {filterSearchSections.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filterSearchSections.length)} of {filterSearchSections.length} entries {isFiltered && `(filtered from ${sections.length} total entries)`}</p>
+                                            <p className='entries-amount'>Showing {filterSearchPrograms.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filterSearchPrograms.length)} of {filterSearchPrograms.length} entries {isFiltered && `(filtered from ${programs.length} total entries)`}</p>
                                         </div>
 
                                         <div className="col-12 col-md-6 table-responsive">
@@ -188,21 +188,21 @@ function Sections() {
                 </div>
             </div>
 
-            <div className="modal fade" id="sectionsModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="programsModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">{isEditing ? "Edit Section" : "Add Section"}</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">{isEditing ? "Edit Program" : "Add Program"}</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         <form onSubmit={handleSubmit}>
                             <div className="modal-body">
                                 <label htmlFor="title" className="form-label mb-1">Title <span className="text-danger">*</span></label>
-                                <input type="text" id="title" value={sectionsFormData.title} onChange={(e) => setSectionsFormData({ ...sectionsFormData, title: e.target.value })} className="form-control" required />
+                                <input type="text" id="title" value={programsFormData.title} onChange={(e) => setProgramsFormData({ ...programsFormData, title: e.target.value })} className="form-control" required />
 
                                 <label htmlFor="status" className="form-label mb-1 mt-2">Status <span className="text-danger">*</span></label>
-                                <select id="status" value={sectionsFormData.status} onChange={(e) => setSectionsFormData({ ...sectionsFormData, status: e.target.value })} className='form-select'>
+                                <select id="status" value={programsFormData.status} onChange={(e) => setProgramsFormData({ ...programsFormData, status: e.target.value })} className='form-select'>
                                     <option value="">Select Status</option>
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
@@ -223,4 +223,4 @@ function Sections() {
     )
 }
 
-export default Sections;
+export default Programs;

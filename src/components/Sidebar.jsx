@@ -61,22 +61,22 @@ function Sidebar({ collapsed }) {
 
                         <ul className={`dropdown-menu-el ${openDropdown === "staffs" ? "open" : ""}`}>
                             <li className={`${activeItem === "allStaffs" ? "active" : ""}`} onClick={() => setActiveItem("allStaffs")}>
-                                <a href="#allStaffs">All Staffs</a>
+                                <Link to="/staffs">All Staffs</Link>
                             </li>
                             <li className={`${activeItem === "addStaffs" ? "active" : ""}`} onClick={() => setActiveItem("addStaffs")}>
-                                <a href="#addStaffs">Add Staffs</a>
+                                <Link to="/staffs/add">Add Staffs</Link>
                             </li>
                             <li className={`${activeItem === "academicStaffs" ? "active" : ""}`} onClick={() => setActiveItem("academicStaffs")}>
-                                <a href="#academicStaffs">Academic Staffs</a>
+                                <Link to="/staffs/academic">Academic Staffs</Link>
                             </li>
                             <li className={`${activeItem === "nonAcademicStaffs" ? "active" : ""}`} onClick={() => setActiveItem("nonAcademicStaffs")}>
-                                <a href="#nonAcademicStaffs">Non Academic Staffs</a>
+                                <Link to="/staffs/non-academic">Non Academic Staffs</Link>
                             </li>
                             <li className={`${activeItem === "fullTimeStaffs" ? "active" : ""}`} onClick={() => setActiveItem("fullTimeStaffs")}>
-                                <a href="#fullTimeStaffs">Full-Time Staffs</a>
+                                <Link to="/staffs/full-time">Full-Time Staffs</Link>
                             </li>
                             <li className={`${activeItem === "partTimeStaffs" ? "active" : ""}`} onClick={() => setActiveItem("partTimeStaffs")}>
-                                <a href="#partTimeStaffs">Part-Time Staffs</a>
+                                <Link to="/staffs/part-time">Part-Time Staffs</Link>
                             </li>
                         </ul>
                     </li>
