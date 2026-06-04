@@ -104,11 +104,11 @@ function Invoices() {
 
                         <div className="">
                             <button type='button' className='btn btn-sm btn-primary me-2' style={{ position: 'relative' }} onClick={() => navigate('/invoices/bulk')}>
-                                <span className="add-icon">+</span> <span className="ms-4 pe-1 fw-semibold">Bulk</span>
+                                <span className="add-icon ps-2">+</span> <span className="ms-4 pe-1 fw-semibold">Bulk</span>
                             </button>
 
                             <button type='button' className='btn btn-sm btn-primary' style={{ position: 'relative' }} onClick={() => navigate('/invoices/single')}>
-                                <span className="add-icon">+</span> <span className="ms-4 pe-1 fw-semibold">Single</span>
+                                <span className="add-icon ps-2">+</span> <span className="ms-4 pe-1 fw-semibold">Single</span>
                             </button>
                         </div>
                     </div>

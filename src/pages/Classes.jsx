@@ -184,7 +184,7 @@ function Classes() {
                             <div className="d-flex justify-content-between relative-container">
                                 <h5 className="title-text">Classes</h5>
                                 <button type='button' className='btn btn-sm btn-primary' data-bs-toggle="modal" data-bs-target="#classModal" onClick={() => handleAddClass()} style={{ position: 'relative' }}>
-                                    <span className="add-icon">+</span> <span className="ms-4">Class</span>
+                                    <span className="add-icon ps-2">+</span> <span className="ms-3">Class</span>
                                 </button>
                             </div>
 

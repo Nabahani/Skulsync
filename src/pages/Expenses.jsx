@@ -150,12 +150,12 @@ function Expenses() {
                                                 <li onClick={() => {
                                                     navigate('/expenses/add');
                                                 }} className="position-relative">
-                                                    <Link><span className="add-icon text-info">+</span> <span className="add-text ps-4 fw-semibold">New Expenses</span></Link>
+                                                    <Link><span className="add-icon text-info pe-2">+</span> <span className="add-text ps-4 fw-semibold">New Expenses</span></Link>
                                                 </li>
                                                 <li onClick={() => {
                                                     navigate('/expenses/bulk');
                                                 }} className="position-relative">
-                                                    <Link><span className="add-icon text-info">+</span> <span className="add-text ps-4 fw-semibold">New Bulk Expenses</span></Link>
+                                                    <Link><span className="add-icon text-info pe-2">+</span> <span className="add-text ps-4 fw-semibold">New Bulk Expenses</span></Link>
                                                 </li>
                                             </ul>
                                         </nav>

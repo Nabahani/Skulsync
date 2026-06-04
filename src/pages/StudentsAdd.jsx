@@ -68,7 +68,8 @@ function StudentsAdd() {
             const newStudent = { ...data, id: crypto.randomUUID(), status: 'active' };
             setStudentsData([...studentsData, newStudent]);
             navigate('/students');
-        } else {
+        } else if (action === 'bulk') {
+            navigate('/students');
         }
     }
 
@@ -248,6 +249,53 @@ function StudentsAdd() {
                 </div>
             </>
         )
+    } else if (action === 'bulk') {
+        content = (
+            <div className="col-11 col-md-8">
+                <div className="public-container">
+                    <h3 className="title-4 mt-3 text-center">Upload Bulk Student</h3>
+
+                    <form className="student-form" onSubmit={(e) => handleSubmit(e)}>
+                        <div className="row">
+                            <div className="col-12">
+                                <label htmlFor="csv" className="form-label mb-1 mt-2">Upload CSV File</label>
+                                <input type="file" id="csv" className="form-control" onChange={(e) => setData({ ...data, csv: e.target.value })} />
+                            </div>
+                            <div className="col-md-6 mt-2">
+                                <label htmlFor="class" className="form-label mb-1">Class <span className="text-danger">*</span></label>
+                                <select id="class" className="form-select" onChange={(e) => setData({ ...data, class: e.target.value })} required>
+                                    <option value=''>Choose..</option>
+                                    <option value="SS 3">SS 3</option>
+                                    <option value="SS 2">SS 2</option>
+                                    <option value="SS 1">SS 1</option>
+                                    <option value="Jss 3">Jss 3</option>
+                                    <option value="Jss 2">Jss 2</option>
+                                    <option value="Jss 1">Jss 1</option>
+                                    <option value="Primary 5">Primary 5</option>
+                                    <option value="Primary 4">Primary 4</option>
+                                    <option value="Primary 3">Primary 3</option>
+                                    <option value="Primary 2">Primary 2</option>
+                                    <option value="Primary 1">Primary 1</option>
+                                    <option value="Nursery 2">Nursery 2</option>
+                                    <option value="Nursery 1">Nursery 1</option>
+                                    <option value="Pre Nursery">Pre Nursery</option>
+                                </select>
+                            </div>
+                            <div className="col-md-6 mt-2">
+                                <label htmlFor="session" className="form-label mb-1">Session <span className="text-danger">*</span></label>
+                                <select id="session" className="form-select" onChange={(e) => setData({ ...data, session: e.target.value })} required>
+                                    <option value={`${new Date().getFullYear() - 1}/${new Date().getFullYear()}`}>{`${new Date().getFullYear() - 1}/${new Date().getFullYear()}`}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="text-center mt-3">
+                            <button type="submit" className="btn btn-primary text-center py-1 me-1">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )
     } else if (action === 'active' || action === 'inactive' || action === 'alumni') {
         content = (
             <>
@@ -389,7 +437,7 @@ function StudentsAdd() {
                 </p>
             </div>
 
-            <div className="container-fluid">
+            <div className="container-fluid pb-4">
                 <div className="row justify-content-center">
                     {content}
                 </div>

@@ -160,8 +160,13 @@ function Students() {
                                             <ul>
                                                 <li onClick={() => {
                                                     navigate('/students/add');
-                                                }}>
+                                                }} className="position-relative">
                                                     <Link><span className="add-icon text-black">+</span> <span className="add-text ps-4 fw-semibold">Add Student</span></Link>
+                                                </li>
+                                                <li onClick={() => {
+                                                    navigate('/students/bulk');
+                                                }} className="position-relative">
+                                                    <Link><span className="add-icon text-black">+</span> <span className="add-text ps-4 fw-semibold">Add Bulk</span></Link>
                                                 </li>
                                             </ul>
                                         </nav>

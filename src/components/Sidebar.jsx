@@ -94,22 +94,22 @@ function Sidebar({ collapsed }) {
 
                         <ul className={`dropdown-menu-el ${openDropdown === "students" ? "open" : ""}`}>
                             <li className={`${activeItem === "allStudents" ? "active" : ""}`} onClick={() => setActiveItem("allStudents")}>
-                                <a href="#allStudents">All Student</a>
+                                <Link to="/students">All Student</Link>
                             </li>
                             <li className={`${activeItem === "admission" ? "active" : ""}`} onClick={() => setActiveItem("admission")}>
-                                <a href="#admission">Admission</a>
+                                <Link to="/students/add">Admission</Link>
                             </li>
                             <li className={`${activeItem === "bulkAdmission" ? "active" : ""}`} onClick={() => setActiveItem("bulkAdmission")}>
-                                <a href="#bulkAdmission">Bulk Admission</a>
+                                <Link to="/students/bulk">Bulk Admission</Link>
                             </li>
                             <li className={`${activeItem === "activeStudents" ? "active" : ""}`} onClick={() => setActiveItem("activeStudents")}>
-                                <a href="#activeStudents">Active Students</a>
+                                <Link to="/students/active">Active Students</Link>
                             </li>
                             <li className={`${activeItem === "inActiveStudents" ? "active" : ""}`} onClick={() => setActiveItem("inActiveStudents")}>
-                                <a href="#inActiveStudents">In Active Students</a>
+                                <Link to="/students/inactive">Inactive Students</Link>
                             </li>
                             <li className={`${activeItem === "alumniStudents" ? "active" : ""}`} onClick={() => setActiveItem("alumniStudents")}>
-                                <a href="#alumniStudents">Alumni Students</a>
+                                <Link to="/students/alumni">Alumni Students</Link>
                             </li>
                         </ul>
                     </li>

@@ -844,8 +844,9 @@ button.actions:hover,
 .add-icon {
   position: absolute;
   font-size: 26px;
-  bottom: 2px;
-  left: 12px;
+  top: 42%;
+  left: 13%;
+  transform: translate(-50%, -50%);
   color: rgb(250, 250, 250);
 }
 
@@ -1059,10 +1060,11 @@ div.myFont {
 
   button.add-button .plus-icon {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 24px;
     font-weight: 600;
-    bottom: 2px;
-    left: 9px;
   }
 
   button.add-button .plus-icon.unique {
