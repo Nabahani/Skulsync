@@ -154,16 +154,22 @@ function Sidebar({ collapsed }) {
 
                         <ul className={`dropdown-menu-el ${openDropdown === "invoices" ? "open" : ""}`}>
                             <li className={`${activeItem === "accounts" ? "active" : ""}`} onClick={() => setActiveItem("accounts")}>
-                                <a href="#accounts">Accounts</a>
+                                <Link to="/invoices">All Invoice</Link>
                             </li>
                             <li className={`${activeItem === "transfers" ? "active" : ""}`} onClick={() => setActiveItem("transfers")}>
-                                <a href="#transfers">Transfers</a>
+                                <Link to="/invoices/single">Add Single Invoice</Link>
                             </li>
                             <li className={`${activeItem === "transactions" ? "active" : ""}`} onClick={() => setActiveItem("transactions")}>
-                                <a href="#transactions">Transactions</a>
+                                <Link to="/invoices/bulk">Add Bulk Invoice</Link>
                             </li>
                             <li className={`${activeItem === "bank-account2" ? "active" : ""}`} onClick={() => setActiveItem("bank-account2")}>
-                                <a href="#bank-account2">Bank Account</a>
+                                <Link to="/invoices/print-bulk-form">Print Bulk Invoice</Link>
+                            </li>
+                            <li className={`${activeItem === "bank-account12" ? "active" : ""}`} onClick={() => setActiveItem("bank-account12")}>
+                                <Link to="/invoices/invoices_status">Check Payment Status</Link>
+                            </li>
+                            <li className={`${activeItem === "bank-account13" ? "active" : ""}`} onClick={() => setActiveItem("bank-account13")}>
+                                <Link to="/invoices/getpass">Generate Get Pass</Link>
                             </li>
                         </ul>
                     </li>
@@ -181,13 +187,13 @@ function Sidebar({ collapsed }) {
 
                         <ul className={`dropdown-menu-el ${openDropdown === "accounts" ? "open" : ""}`}>
                             <li className={`${activeItem === "accounts1" ? "active" : ""}`} onClick={() => setActiveItem("accounts1")}>
-                                <a href="#accounts1">Accounts</a>
+                                <a to="#accounts1">Accounts</a>
                             </li>
                             <li className={`${activeItem === "transfers1" ? "active" : ""}`} onClick={() => setActiveItem("transfers1")}>
-                                <a href="#transfers1">Transfers</a>
+                                <a to="#transfers1">Transfers</a>
                             </li>
                             <li className={`${activeItem === "transactions1" ? "active" : ""}`} onClick={() => setActiveItem("transactions1")}>
-                                <a href="#transactions1">Transactions</a>
+                                <a to="#transactions1">Transactions</a>
                             </li>
                         </ul>
                     </li>
