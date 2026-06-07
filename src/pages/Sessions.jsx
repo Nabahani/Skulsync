@@ -26,12 +26,6 @@ function Sessions() {
         }
     ]);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm();
-
     const hanldeAddSessions = () => {
         setSessionsFormData({ id: '', title: '', startDate: '', endDate: '', status: '' });
         setIsEditing(false);
