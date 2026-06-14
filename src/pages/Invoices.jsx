@@ -97,7 +97,7 @@ function Invoices() {
                 </p>
             </div>
 
-            <div className="container-fluid pb-3">
+            <div className="container-fluid pb-4">
                 <div className="public-container">
                     <div className="d-flex justify-content-between align-items-center">
                         <h5 className="title-text">Invoices</h5>
@@ -182,7 +182,10 @@ function Invoices() {
                                                             <td></td>
                                                             <td>{data.class}</td>
                                                             <td>{data.category}</td>
-                                                            <td>{data.total}</td>
+                                                            <td>
+                                                                &#8358;
+                                                                {(Number(String(data?.total ?? "90000").replace(/,/g, "")) || 90000).toLocaleString()}
+                                                            </td>
                                                             <td>{data.session}</td>
                                                             <td>
                                                                 <span className="bg-primary text-white px-1 smaller-text" style={{ borderRadius: '5px', paddingBottom: '1.5px' }}>{data.status1}</span>

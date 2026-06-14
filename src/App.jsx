@@ -43,6 +43,7 @@ import Transfers from './pages/Transfers';
 import TransfersParams1 from './pages/TransfersParams1';
 import TransfersParams2 from './pages/TransfersParams2';
 import Transactions from './pages/Transactions';
+import PaymentsParams1 from './pages/PaymentsParams1';
 
 function App() {
 
@@ -70,6 +71,7 @@ function App() {
                           <Route path='/invoices/:action' element={<InvoicesParams2 />} />
                           <Route path='/invoices/:action/:id' element={<InvoicesParams3 />} />
                           <Route path='/payments' element={<Payments />} />
+                          <Route path='/payments/:action' element={<PaymentsParams1 />} />
                           <Route path='/payments/:action/:id' element={<PaymentsDetails />} />
                           <Route path='/expenses' element={<Expenses />} />
                           <Route path='/expenses/:action/:id' element={<ExpensesDetails />} />

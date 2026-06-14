@@ -54,7 +54,7 @@ function Payments() {
     const currentMonth = months[new Date().getMonth()];
     const totalPayment = (filteredInvoices ?? []).reduce(
         (sum, invs) =>
-            sum + Number((invs.total ?? '0').replace(',', '')),
+            sum + Number(String(invs?.total ?? '0').replace(',', '')),
         0
     );
 
@@ -197,7 +197,10 @@ function Payments() {
                                                                     <td></td>
                                                                     <td></td>
                                                                     <td>{data.paymentMethod}</td>
-                                                                    <td>&#8358;{data.total ?? '90,000.00'}</td>
+                                                                    <td>
+                                                                        &#8358;
+                                                                        {(Number(String(data?.total ?? "90000").replace(/,/g, "")) || 90000).toLocaleString()}
+                                                                    </td>
                                                                     <td>
                                                                         <span className="bg-primary text-white px-1 smaller-text" style={{ borderRadius: '5px', paddingBottom: '1.5px' }}>{data.status2}</span>
                                                                     </td>
