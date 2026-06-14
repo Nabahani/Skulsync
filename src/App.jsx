@@ -7,6 +7,7 @@ import { SectionsProvider } from './context/SectionsContext';
 import { ProgramsProvider } from './context/ProgramsContext';
 import { StaffsProvider } from './context/StaffsContext';
 import { BillingsProvider } from './context/BillingsContext';
+import { AccountsProvider } from './context/AccountsContext';
 import { Route, Routes } from 'react-router-dom';
 import EmailVerification from './pages/EmailVerification';
 import Dashboard from './pages/Dashboard';
@@ -35,6 +36,13 @@ import Billings from './pages/Billings';
 import BillingsParams1 from './pages/BillingsParams1';
 import BillingsParams2 from './pages/BillingsParams2';
 import BillingsParams3 from './pages/BillingsParams3';
+import Accounts from './pages/Accounts';
+import AccountsParams1 from './pages/AccountsParams1';
+import AccountsParams2 from './pages/AccountsParams2';
+import Transfers from './pages/Transfers';
+import TransfersParams1 from './pages/TransfersParams1';
+import TransfersParams2 from './pages/TransfersParams2';
+import Transactions from './pages/Transactions';
 
 function App() {
 
@@ -47,42 +55,51 @@ function App() {
               <ProgramsProvider>
                 <StaffsProvider>
                   <BillingsProvider>
+                    <AccountsProvider>
 
-                    <Routes>
-                      <Route element={<MainLayout />}>
-                        <Route path='/dashboard' element={<Dashboard />} />
-                        <Route path='/sessions' element={<Sessions />} />
-                        <Route path='/students' element={<Students />} />
-                        <Route path='/students/:action' element={<StudentsAdd />} />
-                        <Route path='/students/:action/:id' element={<StudentsActions />} />
-                        <Route path='/classes' element={<Classes />} />
-                        <Route path='/classes/view/:cls' element={<ViewClasses />} />
-                        <Route path='/invoices' element={<Invoices />} />
-                        <Route path='/invoices/:action' element={<InvoicesParams2 />} />
-                        <Route path='/invoices/:action/:id' element={<InvoicesParams3 />} />
-                        <Route path='/payments' element={<Payments />} />
-                        <Route path='/payments/:action/:id' element={<PaymentsDetails />} />
-                        <Route path='/expenses' element={<Expenses />} />
-                        <Route path='/expenses/:action/:id' element={<ExpensesDetails />} />
-                        <Route path='/expenses/:action/' element={<AddExpenses />} />
-                        <Route path='/sections' element={<Sections />} />
-                        <Route path='/programs' element={<Programs />} />
-                        <Route path='/staffs' element={<Staffs />} />
-                        <Route path='/staffs/:action' element={<StaffsParams2 />} />
-                        <Route path='/staffs/:action/:id' element={<StaffsParams3 />} />
-                        <Route path='/billings' element={<Billings />} />
-                        <Route path='/billings/:action' element={<BillingsParams1 />} />
-                        <Route path='/billings/:action1/:action2' element={<BillingsParams2 />} />
-                        <Route path='/billings/:action1/:action2/:id' element={<BillingsParams3 />} />
-                      </Route>
+                      <Routes>
+                        <Route element={<MainLayout />}>
+                          <Route path='/dashboard' element={<Dashboard />} />
+                          <Route path='/sessions' element={<Sessions />} />
+                          <Route path='/students' element={<Students />} />
+                          <Route path='/students/:action' element={<StudentsAdd />} />
+                          <Route path='/students/:action/:id' element={<StudentsActions />} />
+                          <Route path='/classes' element={<Classes />} />
+                          <Route path='/classes/view/:cls' element={<ViewClasses />} />
+                          <Route path='/invoices' element={<Invoices />} />
+                          <Route path='/invoices/:action' element={<InvoicesParams2 />} />
+                          <Route path='/invoices/:action/:id' element={<InvoicesParams3 />} />
+                          <Route path='/payments' element={<Payments />} />
+                          <Route path='/payments/:action/:id' element={<PaymentsDetails />} />
+                          <Route path='/expenses' element={<Expenses />} />
+                          <Route path='/expenses/:action/:id' element={<ExpensesDetails />} />
+                          <Route path='/expenses/:action/' element={<AddExpenses />} />
+                          <Route path='/sections' element={<Sections />} />
+                          <Route path='/programs' element={<Programs />} />
+                          <Route path='/staffs' element={<Staffs />} />
+                          <Route path='/staffs/:action' element={<StaffsParams2 />} />
+                          <Route path='/staffs/:action/:id' element={<StaffsParams3 />} />
+                          <Route path='/billings' element={<Billings />} />
+                          <Route path='/billings/:action' element={<BillingsParams1 />} />
+                          <Route path='/billings/:action1/:action2' element={<BillingsParams2 />} />
+                          <Route path='/billings/:action1/:action2/:id' element={<BillingsParams3 />} />
+                          <Route path='/accounts' element={<Accounts />} />
+                          <Route path='/accounts/:action' element={<AccountsParams1 />} />
+                          <Route path='/accounts/:action/:id' element={<AccountsParams2 />} />
+                          <Route path='/transfers' element={<Transfers />} />
+                          <Route path='/transfers/:action' element={<TransfersParams1 />} />
+                          <Route path='/transfers/:action/:id' element={<TransfersParams2 />} />
+                          <Route path='/transactions' element={<Transactions />} />
+                        </Route>
 
 
-                      <Route path='/auth/:userMode' element={<Auth />} />
-                      <Route path='/' element={<Auth />} />
-                      <Route path='/email/verify' element={<EmailVerification />} />
-                      <Route path='*' element={<NotFound />} />
-                    </Routes>
+                        <Route path='/auth/:userMode' element={<Auth />} />
+                        <Route path='/' element={<Auth />} />
+                        <Route path='/email/verify' element={<EmailVerification />} />
+                        <Route path='*' element={<NotFound />} />
+                      </Routes>
 
+                    </AccountsProvider>
                   </BillingsProvider>
                 </StaffsProvider>
               </ProgramsProvider>

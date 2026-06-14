@@ -1,74 +1,57 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useInvoices } from "../context/InvoicesContext";
+import { useAccounts } from "../context/AccountsContext";
 import { useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
 
-function Payments() {
+function Accounts() {
 
     const navigate = useNavigate();
-    const { invoices } = useInvoices();
-    const [searchInvoices, setSearchInvoices] = useState('');
-    const filteredInvoices = invoices.filter((data) => {
-        if (data.status2 === 'Successful') {
-            const searchString = searchInvoices.toLowerCase().trim();
+    const { accounts } = useAccounts();
+    const [searchAccounts, setSearchAccounts] = useState('');
+    const filteredAccounts = accounts.filter((data) => {
+        const searchString = searchAccounts.toLowerCase().trim();
 
-            if (!searchString) return true;
+        if (!searchString) return true;
 
-            return (
-                (data.id ?? '').toLowerCase().includes(searchString) ||
-                (data.uniqueId ?? '').toLowerCase().includes(searchString) ||
-                (data.student ?? '').toLowerCase().includes(searchString) ||
-                (data.paymentMethod ?? '').toLowerCase().includes(searchString) ||
-                (data.total ?? '').toLowerCase().includes(searchString) ||
-                (data.status2 ?? '').toLowerCase().includes(searchString) ||
-                (data.date ?? '').toLowerCase().includes(searchString)
-            );
-        }
-
-        return false;
+        return (
+            (String(data?.id) ?? '').includes(searchString) ||
+            (data?.title ?? '').toLowerCase().includes(searchString) ||
+            (String(data?.code) ?? '').includes(searchString) ||
+            (data?.type ?? '').toLowerCase().includes(searchString) ||
+            (String(data?.previousBal) ?? '').includes(searchString) ||
+            (String(data?.currentBal) ?? '').includes(searchString) ||
+            (data?.parent ?? '').toLowerCase().includes(searchString) ||
+            (data?.status ?? '').toLowerCase().includes(searchString) ||
+            (data?.description ?? '').toLowerCase().includes(searchString) ||
+            (data?.createdOn ?? '').includes(searchString) ||
+            (data?.createdBy ?? '').toLowerCase().includes(searchString)
+        );
     });
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const lastIndex = currentPage * itemsPerPage;
     const firstIndex = lastIndex - itemsPerPage;
-    const currentPageItems = filteredInvoices.slice(firstIndex, lastIndex);
-    const totalPages = Math.ceil(filteredInvoices.length / itemsPerPage) || 1;
-    const isFiltered = searchInvoices.trim() !== '';
+    const currentPageItems = filteredAccounts.slice(firstIndex, lastIndex);
+    const totalPages = Math.ceil(filteredAccounts.length / itemsPerPage) || 1;
+    const isFiltered = searchAccounts.trim() !== '';
     const [toggleActions, setToggleActions] = useState(false);
     const [toggleActionsById, setToggleActionsById] = useState();
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ];
-    const currentYear = new Date().getFullYear();
-    const currentMonth = months[new Date().getMonth()];
-    const totalPayment = (filteredInvoices ?? []).reduce(
-        (sum, invs) =>
-            sum + Number((invs.total ?? '0').replace(',', '')),
-        0
-    );
+    const assetAccounts = accounts.filter((accounts) => accounts.type === 'Asset');
+    const incomeAccounts = accounts.filter((accounts) => accounts.type === 'Income');
+    const expenseAccounts = accounts.filter((accounts) => accounts.type === 'Expense');
+    const liabilitiesAccounts = accounts.filter((accounts) => accounts.type === 'Liability');
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [itemsPerPage, searchInvoices])
+    }, [itemsPerPage, searchAccounts])
 
     return (
         <>
             <div className="page">
-                <h4 className="page-title">Payments</h4>
+                <h4 className="page-title">Accounts</h4>
                 <p className="page-navigations mb-0">
-                    <span className='link-container'><Link className='page-link' to="/dashboard">Home</Link ><span className="slash">/</span></span>
-                    <span className="current-path">Payments</span>
+                    <span className='link-container' onClick={() => navigate('/dashboard')}><a className='page-link'>Home</a><span className="slash">/</span></span>
+                    <span className="current-path">Accounts</span>
                 </p>
             </div>
 
@@ -77,29 +60,12 @@ function Payments() {
                     <div className="col-sm-6 col-lg-3">
                         <div className="small-container">
                             <div className="inner-container">
-                                <h5 className="title-text">All Payments</h5>
-
-                                <div className="d-flex align-items-center">
-                                    <i className='bi bi-credit-card-2-front-fill'></i>
-                                    <div>
-                                        <p className="bold-text">{filteredInvoices.length}</p>
-                                        <p className="light-text"><span className="green-text text-primary">&#8358;{totalPayment.toLocaleString()}</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-sm-6 col-lg-3">
-                        <div className="small-container">
-                            <div className="inner-container">
-                                <h5 className="title-text">{currentYear}</h5>
+                                <h5 className="title-text">Asset</h5>
 
                                 <div className="d-flex align-items-center">
                                     <i className='bi bi-people-fill'></i>
                                     <div>
-                                        <p className="bold-text">4</p>
-                                        <p className="light-text"><span className="green-text text-primary">&#8358;{(Math.max(totalPayment - 1750000, 0)).toLocaleString()}</span></p>
+                                        <p className="bold-text">{assetAccounts.length}</p>
                                     </div>
                                 </div>
                             </div>
@@ -109,29 +75,42 @@ function Payments() {
                     <div className="col-sm-6 col-lg-3">
                         <div className="small-container">
                             <div className="inner-container">
-                                <h5 className="title-text">{currentMonth}</h5>
-
-                                <div className="d-flex align-items-center">
-                                    <i className='bi bi-credit-card-2-front-fill'></i>
-                                    <div>
-                                        <p className="bold-text">0</p>
-                                        <p className="light-text"><span className="green-text text-primary">&#8358;0</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-sm-6 col-lg-3">
-                        <div className="small-container">
-                            <div className="inner-container">
-                                <h5 className="title-text">Today</h5>
+                                <h5 className="title-text">Income</h5>
 
                                 <div className="d-flex align-items-center">
                                     <i className='bi bi-people-fill'></i>
                                     <div>
-                                        <p className="bold-text">0</p>
-                                        <p className="light-text"><span className="green-text text-primary">&#8358;0</span></p>
+                                        <p className="bold-text">{incomeAccounts.length}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-sm-6 col-lg-3">
+                        <div className="small-container">
+                            <div className="inner-container">
+                                <h5 className="title-text">Expense</h5>
+
+                                <div className="d-flex align-items-center">
+                                    <i className='bi bi-credit-card-2-front-fill'></i>
+                                    <div>
+                                        <p className="bold-text">{expenseAccounts.length}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-sm-6 col-lg-3">
+                        <div className="small-container">
+                            <div className="inner-container">
+                                <h5 className="title-text">Liabilities</h5>
+
+                                <div className="d-flex align-items-center">
+                                    <i className='bi bi-people-fill'></i>
+                                    <div>
+                                        <p className="bold-text">{liabilitiesAccounts.length}</p>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +119,13 @@ function Payments() {
 
                     <div className="col-12">
                         <div className="public-container">
-                            <h5 className="title-text">Payments</h5>
+                            <div className="d-flex justify-content-between align-items-center">
+                                <h5 className="title-text">Accounts</h5>
+
+                                <button type='button' className='btn btn-sm btn-primary me-2' style={{ position: 'relative' }} onClick={() => navigate('/accounts/add')}>
+                                    <span className="add-icon ps-2">+</span> <span className="ms-4 pe-1 fw-semibold">Add</span>
+                                </button>
+                            </div>
 
                             <div className="px-1">
                                 <div className="row mt-3">
@@ -157,7 +142,7 @@ function Payments() {
 
                                     <div className="col-12 col-sm-6">
                                         <label htmlFor="search" className="form-label my-1">Search:</label>
-                                        <input type="search" name="search" id="search" className="form-control p-1 px-2" style={{ width: "250px" }} onChange={(e) => setSearchInvoices(e.target.value)} />
+                                        <input type="search" name="search" id="search" className="form-control p-1 px-2" style={{ width: "250px" }} onChange={(e) => setSearchAccounts(e.target.value)} />
                                     </div>
                                 </div>
 
@@ -169,13 +154,11 @@ function Payments() {
                                             <thead>
                                                 <tr>
                                                     <th>S/N</th>
-                                                    <th>Reference</th>
-                                                    <th>Invoice</th>
-                                                    <th>Student</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th>Method</th>
-                                                    <th>Amount</th>
+                                                    <th>Code</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Balance</th>
+                                                    <th>Parent</th>
                                                     <th>Status</th>
                                                     <th>Date</th>
                                                     <th>Action</th>
@@ -186,22 +169,23 @@ function Payments() {
                                                 {
                                                     currentPageItems.length > 0 ?
                                                         currentPageItems.map((data, index) => {
-
-                                                            const isActive = data.status === 'active';
                                                             return (
                                                                 <tr key={data.id}>
                                                                     <th>{firstIndex + index + 1}</th>
-                                                                    <td>{data.uniqueId}</td>
-                                                                    <td>{data.id}</td>
-                                                                    <td style={{ textTransform: 'uppercase' }}>{data.student}</td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td>{data.paymentMethod}</td>
-                                                                    <td>&#8358;{data.total ?? '90,000.00'}</td>
                                                                     <td>
-                                                                        <span className="bg-primary text-white px-1 smaller-text" style={{ borderRadius: '5px', paddingBottom: '1.5px' }}>{data.status2}</span>
+                                                                        <span className={`${data.type === 'Income' ? 'bg-success text-white' : data.type === 'Asset' ? 'bg-primary text-white' : data.type === 'Expense' ? 'bg-warning text-black' : 'bg-danger text-white'} px-2 rounded-pill smaller-text`} style={{ paddingBottom: '1.2px', fontWeight: '500', fontSize: '10px' }}>{data?.code ?? ''}</span>
                                                                     </td>
-                                                                    <td>{data.date}</td>
+                                                                    <td>{data?.title ?? ''}</td>
+                                                                    <td>
+
+                                                                        <span className={`${data.type === 'Income' ? 'bg-success text-white' : data.type === 'Asset' ? 'bg-primary text-white' : data.type === 'Expense' ? 'bg-warning text-black' : 'bg-danger text-white'} px-2 rounded-pill smaller-text`} style={{ paddingBottom: '1.2px', fontWeight: '500', fontSize: '10px' }}>{data?.type ?? ''}</span>
+                                                                    </td>
+                                                                    <td>&#8358;{data?.currentBal ?? ''}</td>
+                                                                    <td>{data?.parent ?? ''}</td>
+                                                                    <td>
+                                                                        <span className='bg-primary text-white px-2 rounded-pill smaller-text' style={{ paddingBottom: '1.2px', fontWeight: '500', fontSize: '10px' }}>{data?.status ?? ''}</span>
+                                                                    </td>
+                                                                    <td>{data?.createdOn ?? ''}</td>
                                                                     <td className="actions">
                                                                         <button type="button" className="actions" onClick={() => {
                                                                             setToggleActionsById(data.id);
@@ -210,13 +194,16 @@ function Payments() {
                                                                             <i className="bi bi-three-dots-vertical"></i>
                                                                         </button>
 
-                                                                        {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`} style={{ top: '68px', height: '90px' }}>
+                                                                        {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`} style={{ top: '68px', height: '135px' }}>
                                                                             <ul>
-                                                                                <li onClick={() => navigate(`/payments/view/${data.id}`)}>
-                                                                                    <Link><i className="bi bi-eye-fill"></i> <span className="" style={{ fontSize: '17px' }}>View</span></Link>
+                                                                                <li onClick={() => navigate(`/accounts/view/${(data?.title ?? '').toLowerCase().replaceAll(' ', '-')}`)}>
+                                                                                    <a><i className="bi bi-eye-fill"></i> <span className="" style={{ fontSize: '17px' }}>View</span></a>
                                                                                 </li>
-                                                                                <li>
-                                                                                    <Link><i className="bi bi-printer-fill"></i> <span className="" style={{ fontSize: '17px' }}>Print</span></Link>
+                                                                                <li onClick={() => navigate(`/accounts/info/${data.id}`)}>
+                                                                                    <a><i className="bi bi-info-circle"></i> <span className="" style={{ fontSize: '17px' }}>Info</span></a>
+                                                                                </li>
+                                                                                <li onClick={() => navigate(`/accounts/edit/${data.id}`)}>
+                                                                                    <a><i className="bi bi-pencil-square"></i> <span className="" style={{ fontSize: '17px' }}>Edit</span></a>
                                                                                 </li>
                                                                             </ul>
                                                                         </nav>}
@@ -235,7 +222,7 @@ function Payments() {
 
                                     <div className="row mt-3">
                                         <div className="col-12 col-md-6">
-                                            <p className='entries-amount'>Showing {filteredInvoices.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filteredInvoices.length)} of {filteredInvoices.length} entries {isFiltered && `(filtered from ${invoices.length} total entries)`}</p>
+                                            <p className='entries-amount'>Showing {filteredAccounts.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filteredAccounts.length)} of {filteredAccounts.length} entries {isFiltered && `(filtered from ${accounts.length} total entries)`}</p>
                                         </div>
 
                                         <div className="col-12 col-md-6 table-responsive">
@@ -247,9 +234,9 @@ function Payments() {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
         </>
     )
 }
 
-export default Payments;
+export default Accounts;

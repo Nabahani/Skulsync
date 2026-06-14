@@ -556,7 +556,7 @@ function StaffsParams3() {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
 
             <ScrollTop />
         </>

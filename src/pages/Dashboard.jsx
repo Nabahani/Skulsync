@@ -1,7 +1,17 @@
 import { Link } from 'react-router-dom';
 import ScrollTop from '../components/ScrollTop';
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function Dashboard() {
+
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            once: false,
+        });
+    }, []);
 
     return (
         <>
@@ -34,7 +44,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="col-12 col-sm-6 col-lg-4" data-aos='fade-up' data-aos-delay='0'>
                         <div className="small-container">
                             <Link className='inner-link' to='/sessions'>
                                 <div className="inner-container">
@@ -52,7 +62,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="col-12 col-sm-6 col-lg-4" data-aos='fade-up' data-aos-delay='200'>
                         <div className="small-container">
                             <Link className='inner-link' to='/students'>
                                 <div className="inner-container">
@@ -70,7 +80,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="col-12 col-sm-6 col-lg-4" data-aos='fade-up' data-aos-delay='400'>
                         <div className="small-container">
                             <Link className='inner-link' to='/classes'>
                                 <div className="inner-container">
@@ -88,7 +98,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="col-12 col-sm-6 col-lg-4" data-aos='fade-up' data-aos-delay='600'>
                         <div className="small-container">
                             <Link className='inner-link' to='/invoices'>
                                 <div className="inner-container">
@@ -106,7 +116,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="col-12 col-sm-6 col-lg-4" data-aos='fade-up' data-aos-delay='800'>
                         <div className="small-container">
                             <Link className='inner-link' to='/payments'>
                                 <div className="inner-container">
@@ -124,7 +134,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-6 col-lg-4">
+                    <div className="col-12 col-sm-6 col-lg-4" data-aos='fade-up' data-aos-delay='1000'>
                         <div className="small-container">
                             <Link className='inner-link' to='/expenses'>
                                 <div className="inner-container">

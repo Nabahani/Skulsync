@@ -486,6 +486,9 @@ export function InvoicesProvider({ children }) {
         }
     ]);
 
+
+    const [currentData, setCurrentData] = useState(localStorage.getItem('transfers') ? JSON.parse(localStorage.getItem('transfers')) : invoices.filter((data) => (data.paymentMethod === 'Transfer' && data.status2 === 'Successful')));
+
     useEffect(() => {
         localStorage.setItem('invoices', JSON.stringify(invoices));
     }, [invoices]);
@@ -494,8 +497,12 @@ export function InvoicesProvider({ children }) {
         localStorage.setItem('registration', JSON.stringify(registration));
     }, [registration]);
 
+    useEffect(() => {
+        localStorage.setItem('transfers', JSON.stringify(currentData));
+    }, [currentData]);
+
     return (
-        <InvoicesContext.Provider value={{ invoices, setInvoices, registration, setRegistration }}>{children}</InvoicesContext.Provider>
+        <InvoicesContext.Provider value={{ invoices, setInvoices, registration, setRegistration, currentData, setCurrentData }}>{children}</InvoicesContext.Provider>
     )
 }
 
