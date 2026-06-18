@@ -2,38 +2,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { useInvoices } from "../context/InvoicesContext";
 import { useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
+import ScrollTop from "../components/ScrollTop";
+import { usePayslips } from "../context/PayslipsContext";
 
-function Transfers() {
+function Payslips() {
 
     const navigate = useNavigate();
-    const { invoices, currentData } = useInvoices();
+    const { payslips, setPayslips } = usePayslips();
     const [searchAccounts, setSearchAccounts] = useState('');
-    const currentYearData = currentData.filter((data) => (new Date(data.date).getFullYear()) === (new Date().getFullYear()));
-    const currentMonthData = currentData.filter(
-        (data) =>
-            new Date(data.date).getMonth() === new Date().getMonth() &&
-            new Date(data.date).getFullYear() === new Date().getFullYear()
-    );
-    const currentDateData = currentData.filter(
-        (data) => data.date === new Date().toISOString().split('T')[0]
-    );
-    const months = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-
-    const currentMonth = months[new Date().getMonth()];
-    const filteredAccounts = currentData.filter((data) => {
+    const filteredAccounts = payslips.filter((data) => {
         const searchString = searchAccounts.toLowerCase().trim();
 
         if (!searchString) return true;
 
         return (
             (String(data?.id) ?? '').includes(searchString) ||
-            (data?.title ?? '').toLowerCase().includes(searchString) ||
-            (data?.category ?? '').includes(searchString) ||
-            (data?.total ?? '').includes(searchString) ||
-            (data?.status2 ?? '').toLowerCase().includes(searchString) ||
+            (data?.staff ?? '').toLowerCase().includes(searchString) ||
+            (data?.period ?? '').toLowerCase().includes(searchString) ||
+            String(data?.salary ?? '').includes(searchString) ||
+            (data?.status ?? '').toLowerCase().includes(searchString) ||
             (data?.date ?? '').toLowerCase().includes(searchString)
         );
     });
@@ -55,107 +42,20 @@ function Transfers() {
     return (
         <>
             <div className="page">
-                <h4 className="page-title">Transfers</h4>
+                <h4 className="page-title">Payslips</h4>
                 <p className="page-navigations mb-0">
                     <span className='link-container' onClick={() => navigate('/dashboard')}><Link className='page-link'>Home</Link><span className="slash">/</span></span>
-                    <span className="current-path">Transfers</span>
+                    <span className="current-path">Payslips</span>
                 </p>
             </div>
 
             <div className="container-fluid px-3 pb-4">
                 <div className="row g-4">
-                    <div className="col-sm-6 col-lg-3">
-                        <div className="small-container">
-                            <div className="inner-container">
-                                <h5 className="title-text">All Transfers</h5>
-
-                                <div className="d-flex align-items-center">
-                                    <i className='bi bi-credit-card-2-front-fill'></i>
-                                    <div>
-                                        <p className="bold-text">
-                                            {currentData.length}
-                                        </p>
-                                        <p className="light-text fw-semibold text-primary">&#8358;
-                                            {
-                                                currentData.reduce((sum, data) => sum + Number(data.total.replace(/,/g, '')), 0).toLocaleString()
-                                            }
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-sm-6 col-lg-3">
-                        <div className="small-container">
-                            <div className="inner-container">
-                                <h5 className="title-text">{new Date().getFullYear()}</h5>
-
-                                <div className="d-flex align-items-center">
-                                    <i className='bi bi-credit-card-2-front-fill'></i>
-                                    <div>
-                                        <p className="bold-text">
-                                            {currentYearData.length}
-                                        </p>
-                                        <p className="light-text fw-semibold text-primary">&#8358;
-                                            {
-                                                currentYearData.reduce((sum, data) => sum + Number(data.total.replace(/,/g, '')), 0).toLocaleString()
-                                            }
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-sm-6 col-lg-3">
-                        <div className="small-container">
-                            <div className="inner-container">
-                                <h5 className="title-text">{currentMonth}</h5>
-
-                                <div className="d-flex align-items-center">
-                                    <i className='bi bi-credit-card-2-front-fill'></i>
-                                    <div>
-                                        <p className="bold-text">
-                                            {currentMonthData.length}
-                                        </p>
-                                        <p className="light-text fw-semibold text-primary">&#8358;
-                                            {
-                                                currentMonthData.reduce((sum, data) => sum + Number(data.total.replace(/,/g, '')), 0).toLocaleString()
-                                            }
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-sm-6 col-lg-3">
-                        <div className="small-container">
-                            <div className="inner-container">
-                                <h5 className="title-text">Today</h5>
-
-                                <div className="d-flex align-items-center">
-                                    <i className='bi bi-credit-card-2-front-fill'></i>
-                                    <div>
-                                        <p className="bold-text">
-                                            {currentDateData.length}
-                                        </p>
-                                        <p className="light-text fw-semibold text-primary">&#8358;
-                                            {
-                                                currentDateData.reduce((sum, data) => sum + Number(data.total.replace(/,/g, '')), 0).toLocaleString()
-                                            }
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div className="col-12">
                         <div className="public-container">
                             <div className="d-flex justify-content-between align-items-center relative-container">
-                                <h5 className="title-text">Transfers</h5>
+                                <h5 className="title-text">Payslips</h5>
 
                                 <button type='button' className='actions' onClick={() => setAdd(prev => !prev)}>
                                     <i className="bi bi-three-dots-vertical"></i>
@@ -168,12 +68,17 @@ function Transfers() {
                                                 <li onClick={() => {
                                                     navigate('/transfers/add');
                                                 }} className="position-relative">
-                                                    <Link><span className="add-icon text-info">+</span> <span className="add-text ps-4 fw-semibold">New Transfer</span></Link>
+                                                    <Link><span className="add-icon text-info">+</span> <span className="add-text ps-4">New Bulk Payslips</span></Link>
+                                                </li>
+                                                <li onClick={() => {
+                                                    navigate('/transfers/add');
+                                                }} className="position-relative">
+                                                    <Link><span className="add-icon text-info">+</span> <span className="add-text ps-4">New Single Payslips</span></Link>
                                                 </li>
                                                 <li onClick={() => {
                                                     navigate('/transfers/export');
                                                 }} className="position-relative">
-                                                    <Link><span className="add-icon text-info">+</span> <span className="add-text ps-4 fw-semibold">Export Transfers</span></Link>
+                                                    <Link><span className="add-icon text-info">+</span> <span className="add-text ps-4">Process Bulk Payslips</span></Link>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -208,12 +113,13 @@ function Transfers() {
                                             <thead>
                                                 <tr>
                                                     <th>S/N</th>
-                                                    <th>Reference</th>
-                                                    <th>Title</th>
-                                                    <th>Category</th>
-                                                    <th>Amount</th>
+                                                    <th>Staff</th>
+                                                    <th>Period</th>
+                                                    <th>Basic Salary</th>
+                                                    <th>Growth Salary</th>
+                                                    <th>Net Salary</th>
                                                     <th>Status</th>
-                                                    <th>Date</th>
+                                                    <th>Created On</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -222,14 +128,16 @@ function Transfers() {
                                                 {
                                                     currentPageItems.length > 0 ?
                                                         currentPageItems.map((data, index) => {
+                                                            console.log(data)
                                                             return (
                                                                 <tr key={data.id || data.uniqueID}>
                                                                     <th>{firstIndex + index + 1}</th>
-                                                                    <td>{data?.id || data.reference}</td>
-                                                                    <td>{data?.title ?? ''}</td>
-                                                                    <td>{data?.category ?? ''}</td>
-                                                                    <td>&#8358;{Number(String(data?.total || 0).replace(/,/g, '')).toLocaleString()}</td>
-                                                                    <td>{data?.status2 ?? ''}</td>
+                                                                    <td>{data?.staff ?? ''}</td>
+                                                                    <td>{data?.period ?? ''}</td>
+                                                                    <td>&#8358;{(data?.salary ?? 0).toLocaleString()}</td>
+                                                                    <td>&#8358;{(data?.salary ?? 0).toLocaleString()}</td>
+                                                                    <td>&#8358;{(data?.salary ?? 0).toLocaleString()}</td>
+                                                                    <td>{data?.status ?? ''}</td>
                                                                     <td>{data?.date ?? ''}</td>
                                                                     <td className="actions">
                                                                         <button type="button" className="actions" onClick={() => {
@@ -239,10 +147,13 @@ function Transfers() {
                                                                             <i className="bi bi-three-dots-vertical"></i>
                                                                         </button>
 
-                                                                        {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`} style={{ top: '68px', height: '60px' }}>
+                                                                        {toggleActions && <nav className={`actions-button-container ${toggleActionsById === data.id ? 'd-block' : 'd-none'}`} style={{ top: '50px', height: '95px' }}>
                                                                             <ul>
                                                                                 <li onClick={() => navigate(`/transfers/view/${(data.id)}`)}>
                                                                                     <a><i className="bi bi-eye-fill"></i> <span className="" style={{ fontSize: '17px' }}>View</span></a>
+                                                                                </li>
+                                                                                <li onClick={() => navigate(`/transfers/view/${(data.id)}`)}>
+                                                                                    <a><i className="bi bi-trash"></i> <span className="" style={{ fontSize: '17px' }}>Delete</span></a>
                                                                                 </li>
                                                                             </ul>
                                                                         </nav>}
@@ -261,7 +172,7 @@ function Transfers() {
 
                                     <div className="row mt-3">
                                         <div className="col-12 col-md-6">
-                                            <p className='entries-amount'>Showing {filteredAccounts.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filteredAccounts.length)} of {filteredAccounts.length} entries {isFiltered && `(filtered from ${currentData.length} total entries)`}</p>
+                                            <p className='entries-amount'>Showing {filteredAccounts.length === 0 ? 0 : firstIndex + 1} to {Math.min(lastIndex, filteredAccounts.length)} of {filteredAccounts.length} entries {isFiltered && `(filtered from ${payslips.length} total entries)`}</p>
                                         </div>
 
                                         <div className="col-12 col-md-6 table-responsive">
@@ -274,8 +185,10 @@ function Transfers() {
                     </div>
                 </div>
             </div>
+
+            <ScrollTop />
         </>
     )
 }
 
-export default Transfers;
+export default Payslips;
